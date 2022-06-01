@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BalanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'cors'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
+Route::get('/users/{user:id}/balance', [BalanceController::class, 'index'])->middleware('token');
 
 require __DIR__.'/auth.php';

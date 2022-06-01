@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Cors
+class EnsureTokenIsValid
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,10 @@ class Cors
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request)
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Credentials', 'true');
+        if($request->header('x-sportsapp-key') !== '8afb3240-f39f-4bc6-b697-b2faacea3199')
+        {
+            return redirect('/');
+        };
+        return $next($request);
     }
 }
