@@ -26,6 +26,7 @@ class FixtureTest extends TestCase
             'fixture_logo' => [$this->faker()->imageUrl(),$this->faker()->imageUrl()],
             'home_team' => [$this->faker()->word(12),$this->faker()->word(12)],
             'away_team' => [$this->faker()->word(10),$this->faker()->word(10)],
+            'data' => [$this->faker()->name(), $this->faker()->name()]
         ]);
 
         $response->assertStatus(200);
@@ -43,7 +44,7 @@ class FixtureTest extends TestCase
             'away_team' => [$this->faker()->word(10),$this->faker()->word(10)],
         ]);
         $response = $this->get('api/fixtures');
-        dd($response);
+     
         $response->assertOk();
     }
 }

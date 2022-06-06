@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\FixtureController;
+use App\Http\Controllers\OddController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,8 @@ Route::get('/users/{user:id}/balance', [BalanceController::class, 'index'])->mid
 
 Route::post('/fixtures', [FixtureController::class, 'store']);
 Route::get('/fixtures', [FixtureController::class, 'index']);
+
+Route::post('/odds', [OddController::class, 'store']);
+Route::get('/odds', [OddController::class, 'index']);
 
 require __DIR__.'/auth.php';
