@@ -48,7 +48,7 @@ class BetslipController extends Controller
     public function destroy($fixture_id)
     {
         $betslip = Betslip::where('fixture_id', $fixture_id)->delete();
-
+ 
         return response()->json([
             'data' => $betslip
         ]);
@@ -56,7 +56,7 @@ class BetslipController extends Controller
 
     public function remove($session_id)
     {
-        $betslip = Betslip::where('fixture_id', $session_id)->delete();
+        $betslip = Betslip::where('session_id', $session_id)->delete();
 
         return response()->json([
             'data' => $betslip
