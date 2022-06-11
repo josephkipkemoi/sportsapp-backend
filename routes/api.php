@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\BetslipController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
 use Illuminate\Http\Request;
@@ -29,5 +30,10 @@ Route::get('/fixtures', [FixtureController::class, 'index']);
 
 Route::post('/odds', [OddController::class, 'store']);
 Route::get('/odds', [OddController::class, 'index']);
+
+Route::post('/betslips', [BetslipController::class, 'store']);
+Route::get('/betslips/{session_id}', [BetslipController::class, 'index']);
+Route::delete('/betslips/fixtures/{fixture_id}', [BetslipController::class, 'destroy']);
+Route::delete('/betslips/sessions/{session_id}', [BetslipController::class, 'remove']);
 
 require __DIR__.'/auth.php';
