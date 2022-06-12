@@ -12,7 +12,7 @@ class BalanceController extends Controller
     public function store(User $user, StoreBalanceRequest $request)
     {
         // $user->balance()->create((array) new BalanceDTO(...$request->validated));
-        $user->balance()->create([
+        $user->balance()->updateOrCreate([
             'amount' => $request->validated()['amount']
         ]);
 
@@ -24,7 +24,7 @@ class BalanceController extends Controller
 
     public function index(User $user)
     {
-        $balance = $user->balance->amount;
+        $balance = $user->balance()->latest()->first()->amount;
 
         return response()
                     ->json([

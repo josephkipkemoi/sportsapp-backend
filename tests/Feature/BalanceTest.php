@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class BalanceTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
     /**
      * A basic feature test example.
      *

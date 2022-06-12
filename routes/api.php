@@ -3,6 +3,8 @@
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BetslipCartController;
 use App\Http\Controllers\BetslipController;
+use App\Http\Controllers\BetslipHistoryController;
+use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
 use Illuminate\Http\Request;
@@ -41,4 +43,9 @@ Route::delete('/betslips/sessions/{session_id}', [BetslipController::class, 'rem
 // BetslipCart Calculations
 Route::get('/betslips/sessions/{session_id}/odds-total', [BetslipCartController::class, 'odds_total']);
 
+// Checkout Controllers
+Route::post('/checkout', [CheckoutCartController::class, 'store']);
+
+// Betslip History Controllers
+Route::get('/users/{user_id}/betslips/{session_id}', [BetslipHistoryController::class, 'show']);
 require __DIR__.'/auth.php';
