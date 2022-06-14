@@ -47,5 +47,5 @@ Route::get('/betslips/sessions/{session_id}/odds-total', [BetslipCartController:
 Route::post('/checkout', [CheckoutCartController::class, 'store']);
 
 // Betslip History Controllers
-Route::get('/users/{user_id}/betslips/{session_id}', [BetslipHistoryController::class, 'show']);
+Route::get('/users/{user_id}/betslips', [BetslipHistoryController::class, 'show']);
 require __DIR__.'/auth.php';

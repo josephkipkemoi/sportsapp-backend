@@ -13,11 +13,17 @@ class BetslipHistoryController extends Controller
     public function show( Betslip $betslip, CheckoutCart $checkout, Request $request)
     {
         $checkout_history = $checkout->where('user_id', $request->user_id)->get();
-        $fixtures = $betslip->where('session_id', $request->session_id)->get();
 
+        $fixtures = [];
+
+        foreach($checkout_history as $history)
+        {
+            $history->fixtures = $betslip->where('session_id', $history->session_id)->get();
+            array_push($fixtures, $history);
+        }
+        
         return response()->json([
-            'checkout_history' => $checkout_history,
-            'fixtures' => $fixtures
+            'data' => $fixtures
         ]);
     }
 }
