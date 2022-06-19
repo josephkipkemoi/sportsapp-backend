@@ -21,6 +21,8 @@ class BalanceTest extends TestCase
 
         $response = $this->post("api/users/{$user->id}/balance", [
             'amount' =>  0
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);
 
         $response->assertOk();
@@ -37,6 +39,25 @@ class BalanceTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_can_get_all_deposit_transactions() 
+    {
+        $user = User::factory()->create();
+        $this->post("api/users/{$user->id}/balance", [
+            'amount' =>  100
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+        $this->post("api/users/{$user->id}/balance", [
+            'amount' =>  250
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+        $response = $this->get("/api/users/{$user->id}/balance/deposits", [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+ 
+        $response->assertOk();
+    }
     public function test_cannot_get_user_balance_without_correct_token()
     {
         $user = User::factory()->create();

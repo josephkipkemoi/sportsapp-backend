@@ -27,6 +27,8 @@ Route::middleware(['auth:sanctum', 'cors'])->get('/user', function (Request $req
 
 Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
 Route::get('/users/{user:id}/balance', [BalanceController::class, 'index'])->middleware('token');
+Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
+Route::get('/users/{user:id}/balance/history', [BalanceController::class, 'show'])->middleware('token');
 
 Route::post('/fixtures', [FixtureController::class, 'store']);
 Route::get('/fixtures', [FixtureController::class, 'index']);
@@ -45,7 +47,13 @@ Route::get('/betslips/sessions/{session_id}/odds-total', [BetslipCartController:
 
 // Checkout Controllers
 Route::post('/checkout', [CheckoutCartController::class, 'store']);
+// Route::get('/checkouts/users/{user:id}/sessions/{session_id}', [CheckoutCartController::class, 'show']);
 
 // Betslip History Controllers
-Route::get('/users/{user_id}/betslips', [BetslipHistoryController::class, 'show']);
+Route::get('/users/{session_id}/betslips', [BetslipHistoryController::class, 'show']);
+Route::get('/users/{session_id}/betslips/status', [BetslipHistoryController::class, 'index']);
+Route::get('/users/betslips/search', [BetslipHistoryController::class, 'search_date']);
+Route::patch('/users/betslips/update', [BetslipHistoryController::class, 'update']);
+Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delete']);
+
 require __DIR__.'/auth.php';

@@ -31,4 +31,24 @@ class BalanceController extends Controller
                         'amount' => $balance
                     ]);
     }
+
+    public function show(User $user)
+    {
+        $balance = $user->balance()->paginate(5);
+
+        return response()
+                    ->json([
+                        'balances' => $balance
+                    ]);
+    }
+ 
+    public function deposits(User $user)
+    {
+        $balance = $user->balance()->whereNot('amount', 0)->paginate(5);
+
+        return response()
+                    ->json([
+                        'balances' => $balance
+                    ]);
+    }
 }
