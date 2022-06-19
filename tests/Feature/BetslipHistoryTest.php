@@ -161,7 +161,7 @@ class BetslipHistoryTest extends TestCase
         ]);
 
         $response =  $this
-        ->get("api/users/betslips/search?user_id={$user->id}&session_id={$session_id}&search_date=2022-06-19");
+        ->get("api/users/betslips/search?user_id={$user->id}&session_id={$session_id}&from_date=2022-06-18&to_date=2022-06-19");
 
         $response->assertOk();
     }   

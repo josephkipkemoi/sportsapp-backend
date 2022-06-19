@@ -71,8 +71,9 @@ class BetslipHistoryController extends Controller
     {
         $data = $checkout->where('user_id', $request->user_id)
                         ->where('session_id', $request->session_id )
-                        ->whereDate('created_at', $request->search_date)
+                        ->orWhereBetween('created_at', [$request->from_date, $request->to_date])
                         ->paginate(5);
+                        
         return response()
                     ->json([
                         'data' => $data
