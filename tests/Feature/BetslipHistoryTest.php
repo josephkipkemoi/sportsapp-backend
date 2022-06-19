@@ -30,9 +30,17 @@ class BetslipHistoryTest extends TestCase
         ]);
 
         $session_id = json_decode($betslip->getContent())->data->session_id;
-        
-        $response = $this->get("api/users/{$session_id}/betslips");
 
+        $this->post('api/checkout', [
+            'session_id' => $session_id,
+            'user_id' =>  $user->id,
+            'stake_amount' => $this->faker()->numberBetween(10000,10000),
+            'total_odds' => $this->faker()->numberBetween(10000,10000),
+            'final_payout' => $this->faker()->numberBetween(10000,10000)
+        ]);
+
+        $response = $this->get("api/users/{$user->id}/betslips");
+        // dd($response);
         $response->assertStatus(200);
     }
 

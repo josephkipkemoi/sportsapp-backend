@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class BetslipHistoryController extends Controller
 {
     //
-    public function show( Betslip $betslip, CheckoutCart $checkout, Request $request)
+    public function show( Betslip $betslip, CheckoutCart $checkout, User $user)
     {
-        $checkout_history = $checkout->where('user_id', $request->user_id)->orderBy('created_at', 'ASC')->get();
-
+        $checkout_history = $checkout->where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
+  
         $fixtures = [];
 
         foreach($checkout_history as $history)
