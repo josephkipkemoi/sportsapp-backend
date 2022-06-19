@@ -50,8 +50,8 @@ Route::post('/checkout', [CheckoutCartController::class, 'store']);
 // Route::get('/checkouts/users/{user:id}/sessions/{session_id}', [CheckoutCartController::class, 'show']);
 
 // Betslip History Controllers
-Route::get('/users/{session_id}/betslips', [BetslipHistoryController::class, 'show']);
-Route::get('/users/{session_id}/betslips/status', [BetslipHistoryController::class, 'index']);
+Route::get('/users/{user:id}/betslips', [BetslipHistoryController::class, 'show']);
+Route::get('/users/betslips/status', [BetslipHistoryController::class, 'index']);
 Route::get('/users/betslips/search', [BetslipHistoryController::class, 'search_date']);
 Route::patch('/users/betslips/update', [BetslipHistoryController::class, 'update']);
 Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delete']);

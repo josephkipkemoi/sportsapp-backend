@@ -70,7 +70,7 @@ class BetslipHistoryTest extends TestCase
             'betslip_status' => 'Lost'
         ]);
 
-        $response = $this->get("api/users/{$session_id}/betslips/status?user_id={$user->id}&bet_status=Active");
+        $response = $this->get("api/users/betslips/status?user_id={$user->id}&bet_status=Active");
 
         $response->assertOk();
     }
