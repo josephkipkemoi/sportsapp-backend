@@ -18,7 +18,7 @@ class BetslipHistoryController extends Controller
 
         foreach($checkout_history as $history)
         {
-            $history->fixtures = $betslip->where('session_id', $history->session_id)->get();
+            $history->fixtures = $betslip->where('session_id', $history->session_id)->orderBy('created_at', 'DESC')->get();
             array_push($fixtures, $history);
         }
         
@@ -33,6 +33,7 @@ class BetslipHistoryController extends Controller
         $checkout_history = $checkout
                                 ->where('user_id', $request->user_id)
                                 ->where('betslip_status', $bet_status)
+                                ->orderBy('created_at', 'DESC')
                                 ->paginate(5);
       
         return response()
