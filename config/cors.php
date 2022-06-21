@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'https://serene-nasturtium-53e309.netlify.app/')],
+    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000/')],
 
     'allowed_origins_patterns' => [],
 
