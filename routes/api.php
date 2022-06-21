@@ -24,7 +24,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'cors'])->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('/register', [RegisteredUserController::class, 'store'])
+                ->middleware('guest')
+                ->name('register');
+                
 Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
 Route::get('/users/{user:id}/balance', [BalanceController::class, 'index'])->middleware('token');
 Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
