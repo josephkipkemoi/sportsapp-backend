@@ -16,8 +16,11 @@ class SocialShareButtonsController extends Controller
         ->facebook()
         ->twitter()
         ->telegram()
-        ->whatsapp();
-        
-        return $shareComponent;
+        ->whatsapp()
+        ->getRawLinks();
+       
+        return response()->json([
+            'links' => $shareComponent
+        ]);
     }
 }

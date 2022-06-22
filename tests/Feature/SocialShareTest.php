@@ -16,7 +16,7 @@ class SocialShareTest extends TestCase
     public function test_can_get_social_share_links()
     {
         $response = $this->get('api/social-share');
-        dd($response);
+ 
         $response->assertStatus(200);
     }
 }
