@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 class SocialShareButtonsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
+
         $shareComponent = \Share::page(
-            'https://www.aribet.co.ke',
+            "https://www.aribet.co.ke/?betSession={$request->query('betSession')}",
             'Share Betslip',
         )
         ->facebook()
