@@ -7,6 +7,7 @@ use App\Http\Controllers\BetslipHistoryController;
 use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
+use App\Http\Controllers\SocialShareButtonsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,4 +58,6 @@ Route::get('/users/betslips/search', [BetslipHistoryController::class, 'search_d
 Route::patch('/users/betslips/update', [BetslipHistoryController::class, 'update']);
 Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delete']);
 
+// Social share URI
+Route::get('/social-share', [SocialShareButtonsController::class, 'index']);
 require __DIR__.'/auth.php';
