@@ -13,8 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        '*/api',
-        '/login',
-        '/register'
+        'https://infinite-coast-08848.herokuapp.com/api/login',
+        'https://infinite-coast-08848.herokuapp.com/api/register'
     ];
 }
