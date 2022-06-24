@@ -11,7 +11,7 @@ class SocialShareButtonsController extends Controller
     {
 
         $shareComponent = \Share::page(
-            "https://www.aribet.co.ke/?betSession={$request->query('betSession')}",
+            "https://www.bet360.co.ke/?betSession={$request->query('betSession')}",
             'Share Betslip',
         )
         ->facebook()
