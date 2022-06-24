@@ -42,7 +42,7 @@ class CheckoutCartTest extends TestCase
         $session_id = json_decode($betslip->getContent())->data->session_id;
 
         $response = $this->get("api/checkouts/users/{$user->id}/sessions/{$session_id}");
-        dd($response);
+
         $response->assertOk();
     }
 
