@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBalanceRequest;
+use App\Models\Balance;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class BalanceController extends Controller
 {
     //
-    public function store(User $user, StoreBalanceRequest $request)
+    public function store(StoreBalanceRequest $request)
     {
         // $user->balance()->create((array) new BalanceDTO(...$request->validated));
-        $user->balance()->updateOrCreate([
+        Balance::updateOrCreate([
             'amount' => $request->validated()['amount']
         ]);
 
