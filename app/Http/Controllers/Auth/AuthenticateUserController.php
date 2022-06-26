@@ -17,7 +17,7 @@ class AuthenticateUserController extends Controller
                         ->firstOrFail()
                         ->user_id;
      
-        $user_info = $user->where('id',$user_id)->get('id', 'country_residence', 'email','phone_number');
+        $user_info = $user->where('id',$user_id)->get(['id', 'country_residence', 'email','phone_number']);
         
         return response()->json([
             'status' => 200,
