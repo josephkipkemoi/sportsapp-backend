@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Models\Session;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateUserRequest $request, Session $session)
     {
         $country = $request->validated()['country_residence'];
         $email = $request->validated()['email'];
@@ -37,8 +38,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $session_payload = $session->create([
+            'id' => $user->createToken('apiToken')->plainTextToken,
+            'user_id' => $user->id,
+            'payload' => $user->createToken('apiToken')->plainTextToken,
+            'last_activity' => $_SERVER['REQUEST_TIME'],
+        ]);
+
         Auth::login($user);
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 200,
+            'session_payload' => $session_payload->payload
+        ]);
     }
 }

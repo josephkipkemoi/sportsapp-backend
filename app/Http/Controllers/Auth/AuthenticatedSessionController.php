@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,11 +16,17 @@ class AuthenticatedSessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request, Session $session)
     {
         $request->authenticate();
 
 //         $request->session()->regenerate();
+        $session->create([
+            'id' => auth()->user()->createToken('apiToken')->plainTextToken,
+            'user_id' => auth()->user()->id,
+            'payload' => auth()->user()->createToken('apiToken')->plainTextToken,
+            'last_activity' => $_SERVER['REQUEST_TIME'],
+        ]);
 
         return response()->json([
             'status' => response()->noContent(),
