@@ -25,6 +25,7 @@ class StoreBalanceRequest extends FormRequest
     {
         return [
             //
+            'user_id' => ['required', 'numeric'],
             'amount' => ['required', 'numeric']
         ];
     }

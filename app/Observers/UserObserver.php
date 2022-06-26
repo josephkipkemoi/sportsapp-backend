@@ -16,10 +16,10 @@ class UserObserver
     public function created(User $user)
     {
         //
-        $user->balance()->create([
-            'amount' => 0,
-            'user_id' => $user->id
-        ]);
+        // $user->balance()->create([
+        //     'amount' => 0,
+        //     'user_id' => $user->id
+        // ]);
     }
 
     /**

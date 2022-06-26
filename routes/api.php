@@ -27,7 +27,7 @@ Route::middleware(['cors'])->get('/user', [AuthenticateUserController::class, 's
 
 
 Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
-Route::get('/users/{user:id}/balance', [BalanceController::class, 'index'])->middleware('token');
+Route::get('/users/balance', [BalanceController::class, 'index'])->middleware('token');
 Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
 Route::get('/users/{user:id}/balance/history', [BalanceController::class, 'show'])->middleware('token');
 

@@ -20,6 +20,7 @@ class BalanceTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
             'amount' =>  0
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
@@ -31,12 +32,13 @@ class BalanceTest extends TestCase
     public function test_can_get_user_balance()
     {
         $user = User::factory()->create();
-        // $this->post("api/users/{$user->id}/balance", [
-        //     'amount' =>  100
-        // ], [
-        //     'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
-        // ]);
-        $response = $this->get("/api/users/{$user->id}/balance", [
+        $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
+            'amount' =>  100
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+        $response = $this->get("/api/users/balance?user_id={$user->id}", [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);
 
@@ -47,11 +49,13 @@ class BalanceTest extends TestCase
     {
         $user = User::factory()->create();
         $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
             'amount' =>  100
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);
         $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
             'amount' =>  250
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
@@ -65,8 +69,13 @@ class BalanceTest extends TestCase
     public function test_cannot_get_user_balance_without_correct_token()
     {
         $user = User::factory()->create();
-
-        $response = $this->get("/api/users/{$user->id}/balance", [
+        $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
+            'amount' =>  250
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+        $response = $this->get("/api/users/balance?user_id={$user->id}", [
             'x-sportsapp-key' => 'my-keys'
         ]);
 
