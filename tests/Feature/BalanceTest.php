@@ -31,7 +31,11 @@ class BalanceTest extends TestCase
     public function test_can_get_user_balance()
     {
         $user = User::factory()->create();
-
+        // $this->post("api/users/{$user->id}/balance", [
+        //     'amount' =>  100
+        // ], [
+        //     'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        // ]);
         $response = $this->get("/api/users/{$user->id}/balance", [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);

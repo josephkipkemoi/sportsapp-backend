@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class BalanceController extends Controller
 {
     //
-    public function store(StoreBalanceRequest $request)
+    public function store(StoreBalanceRequest $request, User $user)
     {
         // $user->balance()->create((array) new BalanceDTO(...$request->validated));
-        Balance::updateOrCreate([
+        $user->balance()->create([
             'amount' => $request->validated()['amount']
         ]);
 
