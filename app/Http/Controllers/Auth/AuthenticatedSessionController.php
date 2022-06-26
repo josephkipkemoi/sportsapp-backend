@@ -19,9 +19,12 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+//         $request->session()->regenerate();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => response()->noContent(),
+            'session_cookie' =>  auth()->user()->createToken('apiToken')->plainTextToken
+        ]);
     }
 
     /**
