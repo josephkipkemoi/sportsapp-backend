@@ -24,4 +24,9 @@ class AuthenticateUserController extends Controller
             'user' => $user_info
         ]);
     }
+
+    public function index(Request $request, User $user)
+    {
+        return $user->where('id', $request->query('auth_id'))->firstOrFail();
+    }
 }

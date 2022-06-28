@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['cors'])->get('/user', [AuthenticateUserController::class, 'show']);
+Route::middleware(['cors'])->get('/users/auth_user', [AuthenticateUserController::class, 'index']);
 
 
 Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
