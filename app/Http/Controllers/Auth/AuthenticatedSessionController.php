@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-//         $request->session()->regenerate();
+        $request->session()->regenerate();
         $session->create([
             'id' => auth()->user()->createToken('apiToken')->plainTextToken,
             'user_id' => auth()->user()->id,
@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         return response()->json([
-            'status' => response()->noContent(),
+            'session_uid' => auth()->user()->id,
             'session_cookie' =>  auth()->user()->createToken('apiToken')->plainTextToken
         ]);
     }
