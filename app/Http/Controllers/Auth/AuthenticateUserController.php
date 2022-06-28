@@ -27,6 +27,11 @@ class AuthenticateUserController extends Controller
 
     public function index(Request $request, User $user)
     {
-        return $user->where('id', $request->query('auth_id'))->firstOrFail();
+        $user_info = $user->where('id', $request->query('auth_id'))->firstOrFail();
+        
+        return response()
+                    ->json([
+                        'user' => $user_info
+                    ]);
     }
 }
