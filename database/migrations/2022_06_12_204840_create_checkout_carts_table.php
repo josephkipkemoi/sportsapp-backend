@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('session_id');
             $table->bigInteger('user_id');
             $table->bigInteger('stake_amount');
-            $table->bigInteger('total_odds');
+            $table->decimal('total_odds');
             $table->bigInteger('final_payout');
             $table->string('betslip_status')->default('Active');
             $table->timestamps();
