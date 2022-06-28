@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('stake_amount');
             $table->decimal('total_odds');
-            $table->bigInteger('final_payout');
+            $table->float('final_payout');
             $table->string('betslip_status')->default('Active');
             $table->timestamps();
         });
