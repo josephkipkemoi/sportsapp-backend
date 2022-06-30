@@ -202,7 +202,7 @@ class BetslipHistoryTest extends TestCase
             'final_payout' => $this->faker()->numberBetween(10000,10000)
         ]);
 
-        $response = $this->get("api/users/{$user->id}/sessions/{$session_id}/history");
+        $response = $this->get("api/sessions/{$session_id}/history");
 
         $response->assertOk();
     }
