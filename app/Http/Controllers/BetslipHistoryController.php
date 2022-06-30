@@ -58,7 +58,7 @@ class BetslipHistoryController extends Controller
     public function delete(Request $request, CheckoutCart $checkout)
     {
         $data = $checkout->where('user_id', $request->user_id)
-                         ->where('session_id', $request->session_id )
+                         ->where('session_id', $request->session_id)
                          ->delete();
 
         return response()
