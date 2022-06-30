@@ -10,7 +10,7 @@ use Tests\TestCase;
 class BetslipHistoryTest extends TestCase
 {
     use WithFaker;
-    // use RefreshDatabase;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -202,7 +202,7 @@ class BetslipHistoryTest extends TestCase
             'final_payout' => $this->faker()->numberBetween(10000,10000)
         ]);
 
-        $response = $this->get("api/sessions/{$session_id}/history");
+        $response = $this->get("api/users/sessions/{$session_id}/history");
 
         $response->assertOk();
     }
