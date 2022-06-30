@@ -54,6 +54,7 @@ Route::post('/checkout', [CheckoutCartController::class, 'store']);
 // Betslip History Controllers
 Route::get('/users/{user:id}/betslips', [BetslipHistoryController::class, 'show']);
 Route::get('/users/betslips/status', [BetslipHistoryController::class, 'index']);
+Route::get('/users/{user_id}/sessions/{session_id}/history', [BetslipHistoryController::class, 'get_fixture']);
 Route::get('/users/betslips/search', [BetslipHistoryController::class, 'search_date']);
 Route::patch('/users/betslips/update', [BetslipHistoryController::class, 'update']);
 Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delete']);

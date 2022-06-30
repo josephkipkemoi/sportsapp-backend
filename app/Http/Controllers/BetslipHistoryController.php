@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Betslip;
 use App\Models\CheckoutCart;
+use App\Models\Fixture;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -72,6 +74,18 @@ class BetslipHistoryController extends Controller
         return response()
                     ->json([
                         'data' => $data
+                    ]);
+    }
+
+    public function get_fixture(Request $request, Betslip $betslip) 
+    {
+       $slips = $betslip
+                ->where('session_id', $request->session_id)
+                ->get();
+        
+        return response()
+                    ->json([
+                        'fixtures' => $slips
                     ]);
     }
 }

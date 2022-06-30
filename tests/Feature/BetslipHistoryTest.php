@@ -40,11 +40,9 @@ class BetslipHistoryTest extends TestCase
         ]);
 
         $response = $this->get("api/users/{$user->id}/betslips");
-        // dd($response);
+
         $response->assertStatus(200);
     }
-
-   
 
     public function test_can_get_active_bets()
     {
@@ -174,4 +172,38 @@ class BetslipHistoryTest extends TestCase
         $response->assertOk();
     }   
 
+    public function test_can_get_fixtures_from_session_id()
+    {
+        $user = User::factory()->create();
+
+        $betslip = $this->post('api/betslips', [
+            'fixture_id' => 2,
+            'session_id' => 1,
+            'betslip_teams' => 'aa v bb',
+            'betslip_market' => 'mm',
+            'betslip_odds' => 2,
+            'betslip_picked' => 'Home',
+        ]);
+        $this->post('api/betslips', [
+            'fixture_id' => 2,
+            'session_id' => 1,
+            'betslip_teams' => 'cc v ff',
+            'betslip_market' => 'mm',
+            'betslip_odds' => 2,
+            'betslip_picked' => 'Home',
+        ]);
+        $session_id = json_decode($betslip->getContent())->data->session_id;
+
+        $this->post('api/checkout', [
+            'session_id' => $session_id,
+            'user_id' =>  $user->id,
+            'stake_amount' => $this->faker()->numberBetween(10000,10000),
+            'total_odds' => $this->faker()->numberBetween(10000,10000),
+            'final_payout' => $this->faker()->numberBetween(10000,10000)
+        ]);
+
+        $response = $this->get("api/users/{$user->id}/sessions/{$session_id}/history");
+
+        $response->assertOk();
+    }
 }
