@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Betslip;
 use App\Models\CheckoutCart;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,20 +9,15 @@ use Illuminate\Http\Request;
 class BetslipHistoryController extends Controller
 {
     //
-    public function show( Betslip $betslip, CheckoutCart $checkout, User $user)
+    public function show(CheckoutCart $checkout, User $user)
     {
-        $checkout_history = $checkout->where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
-  
-        $fixtures = [];
+        $checkout_history = $checkout
+                                ->where('user_id', $user->id)
+                                ->orderBy('created_at', 'DESC')
+                                ->paginate(5);
 
-        foreach($checkout_history as $history)
-        {
-            $history->fixtures = $betslip->where('session_id', $history->session_id)->orderBy('created_at', 'DESC')->get();
-            array_push($fixtures, $history);
-        }
-        
         return response()->json([
-            'data' => $fixtures
+            'data' => $checkout_history
         ]);
     }
           
