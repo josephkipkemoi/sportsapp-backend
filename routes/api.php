@@ -9,6 +9,7 @@ use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SocialShareButtonsController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,4 +62,8 @@ Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delet
 
 // Social share URI
 Route::get('/social-share', [SocialShareButtonsController::class, 'index']);
+
+// Customer Care Message
+Route::post('/support', [SupportController::class, 'store']);
+
 require __DIR__.'/auth.php';
