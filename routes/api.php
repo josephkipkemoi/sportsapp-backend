@@ -6,6 +6,7 @@ use App\Http\Controllers\BetslipCartController;
 use App\Http\Controllers\BetslipController;
 use App\Http\Controllers\BetslipHistoryController;
 use App\Http\Controllers\CheckoutCartController;
+use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SocialShareButtonsController;
@@ -65,5 +66,10 @@ Route::get('/social-share', [SocialShareButtonsController::class, 'index']);
 
 // Customer Care Message
 Route::post('/support', [SupportController::class, 'store']);
+
+// Custom Fixture
+Route::get('/custom_fixture', [CustomFixtureController::class, 'fixture']);
+Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixture']);
+Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
 
 require __DIR__.'/auth.php';
