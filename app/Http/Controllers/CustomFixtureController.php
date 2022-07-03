@@ -93,5 +93,15 @@ class CustomFixtureController extends Controller
                     'message' => 'Odds posted'
                 ]);
     }
+
+    public function show(Request $request, CustomFixture $fixture)
+    {
+        $response = $fixture->where('fixture_id', $request->fixture_id)->get()->first();
+
+        return response()
+                    ->json([
+                        'data' => $response
+                    ]);
+    }
    
 }

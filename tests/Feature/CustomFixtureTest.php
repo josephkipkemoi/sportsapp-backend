@@ -18,7 +18,7 @@ class CustomFixtureTest extends TestCase
     public function test_can_get_custom_fixture()
     {
         $response = $this->get('api/custom_fixture');
-        dd($response);
+      
         $response->assertStatus(200);
     }
 
@@ -35,5 +35,12 @@ class CustomFixtureTest extends TestCase
         // $response = $this->post('api/custom_fixture/odds');
 
         // $response->assertOk();
+    }
+
+    public function test_can_get_fixture_by_id()
+    {
+        $response = $this->get('api/custom_fixture/1');
+        
+        $response->assertOk();
     }
 }
