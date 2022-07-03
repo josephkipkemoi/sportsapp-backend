@@ -11,7 +11,7 @@ class CustomFixtureController extends Controller
     //
     public function fixture(CustomFixture $fixture)
     {
-        $response = $fixture->take(2)->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
+        $response = $fixture->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
 
         $data = [];
 
