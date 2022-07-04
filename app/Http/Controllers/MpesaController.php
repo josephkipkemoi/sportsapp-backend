@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class MpesaController extends Controller
 {
     //
-    public function store(Request $request)
+    public function index(Request $request, MpesaTransaction $transaction)
     {
         $endpoint =  'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         
@@ -33,8 +33,11 @@ class MpesaController extends Controller
         //     'AccountReference' => 'BET360',
         //     'TransactionDesc' => 'Deposit'
         // ]);
-       
-        
+        $data = $transaction->all();
+
+        return response()->json([
+            'data' => $data
+        ]);
         // dd($response);
     }
 

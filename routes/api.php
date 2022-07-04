@@ -82,7 +82,7 @@ Route::post('/favorites', [FavoritesController::class, 'store']);
 Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
 
 // Mpesa Transactions
-Route::get('/mpesa', [MpesaController::class, 'store']);
+Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
 
 require __DIR__.'/auth.php';
