@@ -18,14 +18,20 @@ class BalanceTest extends TestCase
     public function test_user_account_balance_is_initialized()
     {
         $user = User::factory()->create();
-
+     
         $response = $this->post("api/users/{$user->id}/balance", [
             'user_id' => $user->id,
-            'amount' =>  0
+            'amount' =>  100
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);
-
+        $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
+            'amount' =>  200
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+      
         $response->assertOk();
     }
 
@@ -80,5 +86,26 @@ class BalanceTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+    }
+
+    public function test_can_deduct_balance()
+    {
+        $user = User::factory()->create();
+
+        $this->post("api/users/{$user->id}/balance", [
+            'user_id' => $user->id,
+            'amount' =>  250
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+
+        $response =  $this->post("api/users/{$user->id}/balance/decrement", [
+            'user_id' => $user->id,
+            'amount' =>  50
+        ], [
+            'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
+        ]);
+
+        $response->assertOk();
     }
 }

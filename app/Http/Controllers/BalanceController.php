@@ -10,13 +10,9 @@ use Illuminate\Http\Request;
 class BalanceController extends Controller
 {
     //
-    public function store(StoreBalanceRequest $request)
+    public function store(StoreBalanceRequest $request, Balance $balance)
     {
-        // $user->balance()->create((array) new BalanceDTO(...$request->validated));
-        Balance::create([
-            'user_id' => $request->validated()['user_id'],
-            'amount' => $request->validated()['amount']
-        ]);
+        $balance->where('user_id', $request->validated()['user_id'])->increment('amount', $request->validated()['amount']);
 
         return response()
                     ->json([
@@ -55,4 +51,14 @@ class BalanceController extends Controller
                         'balances' => $balance
                     ]);
     }
+
+    public function decrement(User $user, StoreBalanceRequest $request)
+    {
+        $user->balance()->decrement('amount', $request->validated()['amount']);
+
+        return response()
+                    ->json([
+                        'message' => 'Success'
+                    ]);
+    }   
 }
