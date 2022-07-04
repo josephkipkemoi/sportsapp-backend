@@ -11,10 +11,15 @@ class FavoritesController extends Controller
     //
     public function store(Request $request, Favorites $favorites)
     {
-        $favorites->create([
-            'user_id' => $request->input("user_id"),
-            'fixture_id' => $request->input("fixture_id")
-        ]);
+        $fixture_ids = $favorites->where('fixture_id', $request->input("fixture_id"))->get();
+
+        if($fixture_ids == null) 
+        {
+            $favorites->create([
+                'user_id' => $request->input("user_id"),
+                'fixture_id' => $request->input("fixture_id")
+            ]);
+        }
 
         return response()
                     ->json([

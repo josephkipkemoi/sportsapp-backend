@@ -22,7 +22,12 @@ class FavoritesTest extends TestCase
             'user_id' => $user->id,
             'fixture_id' => 100,
         ]);
-
+        $this->post("api/favorites", [
+            'user_id' => $user->id,
+            'fixture_id' => 100,
+        ]);
+        $favorites = $this->get("api/users/{$user->id}/favorites");
+        dd($favorites);
         $response->assertStatus(200);
     }
 
