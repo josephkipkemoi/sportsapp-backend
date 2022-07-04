@@ -7,6 +7,7 @@ use App\Http\Controllers\BetslipController;
 use App\Http\Controllers\BetslipHistoryController;
 use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\CustomFixtureController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SocialShareButtonsController;
@@ -73,5 +74,9 @@ Route::get('/custom_fixture/{fixture_id}', [CustomFixtureController::class, 'sho
 Route::get('/fixture/search', [CustomFixtureController::class, 'search']);
 Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixture']);
 Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
+
+// User Favorites
+Route::post('/favorites', [FavoritesController::class, 'store']);
+Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
 
 require __DIR__.'/auth.php';
