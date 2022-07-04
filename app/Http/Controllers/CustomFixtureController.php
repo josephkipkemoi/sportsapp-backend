@@ -108,9 +108,9 @@ class CustomFixtureController extends Controller
     {     
         $response = $fixture
                         ->where('home', $request->query('q'))
-                        ->orWher('away', $request->query('q'))
+                        ->orWhere('away', $request->query('q'))
                         ->get();
-                        
+
         return response()
                     ->json([
                         'data' => $response
