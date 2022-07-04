@@ -9,6 +9,7 @@ use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
+use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
@@ -79,5 +80,9 @@ Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds'
 // User Favorites
 Route::post('/favorites', [FavoritesController::class, 'store']);
 Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
+
+// Mpesa Transactions
+Route::get('/mpesa', [MpesaController::class, 'store']);
+Route::get('/mpesa/transaction', [MpesaController::class, 'store']);
 
 require __DIR__.'/auth.php';
