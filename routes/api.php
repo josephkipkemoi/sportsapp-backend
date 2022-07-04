@@ -70,6 +70,7 @@ Route::post('/support', [SupportController::class, 'store']);
 // Custom Fixture
 Route::get('/custom_fixture', [CustomFixtureController::class, 'fixture']);
 Route::get('/custom_fixture/{fixture_id}', [CustomFixtureController::class, 'show']);
+Route::get('/custom_fixture/search', [CustomFixtureController::class, 'search']);
 Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixture']);
 Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
 

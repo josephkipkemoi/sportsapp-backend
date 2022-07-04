@@ -20,7 +20,7 @@ class CustomFixtureController extends Controller
             $fix->unserialized_odds = unserialize(($fix->odds));
             array_push($data, $fix);
         }
-
+  
         return response()->json([
             'fixtures' => $data
         ]);
@@ -104,4 +104,15 @@ class CustomFixtureController extends Controller
                     ]);
     }
    
+    public function search(Request $request, CustomFixture $fixture)
+    {
+
+     
+        $response = $fixture->whereLike(['home', 'away'], $request->query('q'))->get();
+
+        return response()
+                    ->json([
+                        'data' => $response
+                    ]);
+    }
 }
