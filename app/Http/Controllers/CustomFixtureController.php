@@ -105,11 +105,12 @@ class CustomFixtureController extends Controller
     }
    
     public function search(Request $request, CustomFixture $fixture)
-    {
-
-     
-        $response = $fixture->whereLike(['home', 'away'], $request->query('q'))->get();
-
+    {     
+        $response = $fixture
+                        ->where('home', $request->query('q'))
+                        ->orWher('away', $request->query('q'))
+                        ->get();
+                        
         return response()
                     ->json([
                         'data' => $response

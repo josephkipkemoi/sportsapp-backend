@@ -46,8 +46,8 @@ class CustomFixtureTest extends TestCase
 
     public function test_can_get_fixture_by_search()
     {
-        $response = $this->get('api/custom_fixture/search?q=Arsenal');
-    
+        $response = $this->get('api/fixture/search?q=Arsenal');
+        // dd($response);
         $response->assertOk();
     }
 }
