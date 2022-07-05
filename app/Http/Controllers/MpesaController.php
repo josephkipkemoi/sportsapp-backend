@@ -13,31 +13,25 @@ class MpesaController extends Controller
     //
     public function index(Request $request, MpesaTransaction $transaction)
     {
-        $endpoint =  'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-        
+        $endpointLipaNaMpesaOnline =  'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $c2bPayBill = 'https://sandbox.safaricom.co.ke/mpesa/c2b/v2/simulate';
         // $timestamp = Carbon::now()->toDateTimeString();
 
-        // $response = Http::withHeaders([
-        //     'Authorization' => 'Bearer 5XH53zBuAK6bdikzT2GG37sokxX9',
-        //     'Content-Type' => 'application/json'
-        // ])->post($endpoint, [
-        //     'BusinessShortCode' => 174379,
-        //     'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIwNzA0MTQwMDQ4',
-        //     'Timestamp' => '20220704140048',
-        //     'TransactionType' => 'CustomerPayBillOnline',
-        //     'Amount' => 1,
-        //     'PartyA' => 254700545727,
-        //     'PartyB' => 174379,
-        //     'PhoneNumber' => 254700545727,
-        //     'CallBackURL' => 'https://infinite-coast-08848.herokuapp.com/api/mpesa/hooks',
-        //     'AccountReference' => 'BET360',
-        //     'TransactionDesc' => 'Deposit'
-        // ]);
-        $data = $transaction->all();
-
-        return response()->json([
-            'data' => $data
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer 5XH53zBuAK6bdikzT2GG37sokxX9',
+            'Content-Type' => 'application/json'
+        ])->post($c2bPayBill, [
+            'Command ID' => 'CustomerPayBillOnline',
+            'Amount' => '5',
+            'Msisdn' => '254700545727',
+            'BillRefNumber' => '00000',
+            'ShortCode' => '600247'         
         ]);
+        // $data = $transaction->all();
+
+        // return response()->json([
+        //     'data' => $data
+        // ]);
         // dd($response);
     }
 

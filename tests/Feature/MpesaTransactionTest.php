@@ -15,9 +15,7 @@ class MpesaTransactionTest extends TestCase
      */
     public function test_can_get_mpesa_transaction()
     {
-        $response = $this->post('api/mpesa/hooks', [
-            'test' => 123
-        ]);
+        $response = $this->post('api/mpesa/hooks');
         dd($response);
         $response->assertStatus(200);
     }
