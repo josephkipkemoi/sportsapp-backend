@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticateUserController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BetslipCartController;
@@ -84,5 +85,9 @@ Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
 // Mpesa Transactions
 Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
+
+// Admin Test
+Route::get('/admin/users', [AdminController::class, 'index']);
+Route::get('/admin/users/{user_id}/profile', [AdminController::class, 'show']);
 
 require __DIR__.'/auth.php';
