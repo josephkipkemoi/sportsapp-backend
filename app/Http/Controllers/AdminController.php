@@ -22,7 +22,7 @@ class AdminController extends Controller
     public function show(User $user, Request $request, CheckoutCart $checkout_cart)
     {
         $user_profile = $user->where('id', $request->user_id)->latest()->first();
-        dd($user_profile);
+  
         $history_profile = $checkout_cart->where('user_id', $request->user_id)->get();
 
         return response()
