@@ -33,4 +33,9 @@ class AdminTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_update_user_bet_history()
+    {
+        
+    }
 }

@@ -25,10 +25,13 @@ class AdminController extends Controller
   
         $history_profile = $checkout_cart->where('user_id', $request->user_id)->get();
 
+        $balance = $user->balance;
+
         return response()
                     ->json([
                         'user_profile' => $user_profile,
-                        'history_profile' => $history_profile
+                        'history_profile' => $history_profile,
+                        'balance' => $balance
                     ]);
     }
 }
