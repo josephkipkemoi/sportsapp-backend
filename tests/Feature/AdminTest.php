@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class AdminTest extends TestCase
 {
+    use WithFaker;
     /**
      * A basic feature test example.
      *
@@ -36,6 +37,20 @@ class AdminTest extends TestCase
 
     public function test_can_update_user_bet_history()
     {
-        
+        $user = User::factory()->create();
+
+        $checkout = $this->post('api/checkout', [
+            'session_id' => $this->faker()->numberBetween(1000,10000),
+            'user_id' => $user->id,
+            'stake_amount' => $this->faker()->numberBetween(1000,10000),
+            'total_odds' => $this->faker()->numberBetween(1000,10000),
+            'final_payout' => $this->faker()->numberBetween(1000,10000)
+        ]);
+
+        $response = $this->patch("api/admin/users/{$user->id}/bets/{$checkout->getData()->data->session_id}/update", [
+            'bet_status' => 'Lost'
+        ]);
+
+        $response->assertOk();
     }
 }

@@ -34,4 +34,19 @@ class AdminController extends Controller
                         'balance' => $balance
                     ]);
     }
+
+    public function update(User $user, CheckoutCart $checkout_cart, Request $request)
+    {
+         $checkout_cart
+                    ->where('user_id', $request->user_id)
+                    ->where('session_id', $request->session_id)
+                    ->update([
+                        'betslip_status' => $request->input('bet_status')
+                        ]);
+
+        return response()
+                    ->json([
+                        'message' => 'Betslip status updated'
+                    ]);
+    }
 }

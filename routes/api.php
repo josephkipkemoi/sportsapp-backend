@@ -89,5 +89,6 @@ Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
 // Admin Test
 Route::get('/admin/users', [AdminController::class, 'index']);
 Route::get('/admin/users/{user_id}/profile', [AdminController::class, 'show']);
+Route::patch('/admin/users/{user_id}/bets/{session_id}/update', [AdminController::class, 'update']);
 
 require __DIR__.'/auth.php';
