@@ -53,4 +53,15 @@ class AdminTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_update_user_balance()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->patch("api/admin/users/{$user->id}/balance/update", [
+            'amount' => 250
+        ]);
+
+        $response->assertOk();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Balance;
 use App\Models\CheckoutCart;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class AdminController extends Controller
                     ]);
     }
 
-    public function update(User $user, CheckoutCart $checkout_cart, Request $request)
+    public function update_bethistory(CheckoutCart $checkout_cart, Request $request)
     {
          $checkout_cart
                     ->where('user_id', $request->user_id)
@@ -47,6 +48,20 @@ class AdminController extends Controller
         return response()
                     ->json([
                         'message' => 'Betslip status updated'
+                    ]);
+    }
+
+    public function update_balance(Balance $balance, Request $request)
+    {
+        $balance
+            ->where('user_id', $request->user_id)
+            ->update([
+                'amount' => $request->input('amount')
+            ]);
+
+        return response()
+                    ->json([
+                        'message' => 'Amount updated successfully'
                     ]);
     }
 }
