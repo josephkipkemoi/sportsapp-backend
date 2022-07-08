@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Balance;
 use App\Models\CheckoutCart;
+use App\Models\CustomFixture;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -62,6 +63,43 @@ class AdminController extends Controller
         return response()
                     ->json([
                         'message' => 'Amount updated successfully'
+                    ]);
+    }
+
+    public function custom_fixture(Request $request, CustomFixture $fixture)
+    {
+        $cstm_fixture = $fixture->where('fixture_id', $request->input('fixture_id'))->get();
+
+        if($cstm_fixture == null)
+        {
+            $fixture->create([
+                'fixture_id' => $request->input('fixture_id'),
+                'fixture_date' => $request->input('fixture_date'),
+                'league_name' => $request->input('league_name'),
+                'country' => $request->input('country'),
+                'home' => $request->input('home_team'),
+                'away' => $request->input('away_team'),
+                'home_odds' => $request->input('home_odds'),
+                'draw_odds' => $request->input('draw_odds'),
+                'away_odds' => $request->input('away_odds')
+            ]);
+        } else {
+            $fixture->update([
+                'fixture_date' => $request->input('fixture_date'),
+                'league_name' => $request->input('league_name'),
+                'country' => $request->input('country'),
+                'home' => $request->input('home_team'),
+                'away' => $request->input('away_team'),
+                'home_odds' => $request->input('home_odds'),
+                'draw_odds' => $request->input('draw_odds'),
+                'away_odds' => $request->input('away_odds')
+            ]);
+        }
+       
+
+        return response()
+                    ->json([
+                        'message' => 'Fixture added succesfully'
                     ]);
     }
 }

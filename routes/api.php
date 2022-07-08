@@ -91,5 +91,6 @@ Route::get('/admin/users', [AdminController::class, 'index']);
 Route::get('/admin/users/{user_id}/profile', [AdminController::class, 'show']);
 Route::patch('/admin/users/{user_id}/bets/{session_id}/update', [AdminController::class, 'update_bethistory']);
 Route::patch('/admin/users/{user_id}/balance/update', [AdminController::class, 'update_balance']);
+Route::post('admin/fixture', [AdminController::class, 'custom_fixture']);
 
 require __DIR__.'/auth.php';
