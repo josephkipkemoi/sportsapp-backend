@@ -82,7 +82,7 @@ class AdminController extends Controller
                 'away_odds' => $request->input('away_odds')
             ]);
         } else {
-            $fixture->update([
+            $fixture->where('fixture_id', $request->input('fixture_id'))->update([
                 'fixture_date' => $request->input('fixture_date'),
                 'league_name' => $request->input('league_name'),
                 'country' => $request->input('country'),
