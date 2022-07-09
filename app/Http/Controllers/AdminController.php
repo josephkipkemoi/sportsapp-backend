@@ -56,9 +56,7 @@ class AdminController extends Controller
     {
         $balance
             ->where('user_id', $request->user_id)
-            ->update([
-                'amount' => $request->input('amount')
-            ]);
+            ->increment('amount' , $request->input('amount'));
 
         return response()
                     ->json([
