@@ -12,7 +12,8 @@ class CustomFixtureController extends Controller
     public function fixture(CustomFixture $fixture)
     {
         $response = $fixture->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
-
+        $custom_fixture = $fixture->where('fixture_id', 962132022)->latest()->first();
+        
         $data = [];
 
         foreach($response as $fix)
@@ -22,7 +23,8 @@ class CustomFixtureController extends Controller
         }
   
         return response()->json([
-            'fixtures' => $data
+            'fixtures' => $data,
+            'custom_fixture' => $custom_fixture
         ]);
     }
  
