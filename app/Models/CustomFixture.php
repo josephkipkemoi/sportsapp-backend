@@ -19,5 +19,8 @@ class CustomFixture extends Model
         'logo',
         'flag',
         'league_round',
+        'home_odds',
+        'draw_odds',
+        'away_odds'
     ];
 }
