@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function custom_fixture(Request $request, CustomFixture $fixture)
     {
-        $cstm_fixture = $fixture->where('fixture_id', $request->input('fixture_id'))->get();
+        $cstm_fixture = $fixture->where('fixture_id', $request->input('fixture_id'))->latest()->first();
 
         if($cstm_fixture == null)
         {
