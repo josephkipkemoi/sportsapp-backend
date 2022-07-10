@@ -77,15 +77,20 @@ class BetslipHistoryController extends Controller
                     ]);
     }
 
-    public function get_fixture(Request $request, Betslip $betslip) 
+    public function get_fixture(Request $request, Betslip $betslip, CheckoutCart $checkout) 
     {
        $slips = $betslip
                 ->where('session_id', $request->session_id)
                 ->get();
-        
+        $cart = $checkout
+                ->where('user_id', $request->user_id)
+                ->where('session_id', $request->session_id)
+                ->get();
+
         return response()
                     ->json([
-                        'fixtures' => $slips
+                        'fixtures' => $slips,
+                        'cart' => $cart
                     ]);
     }
 }
