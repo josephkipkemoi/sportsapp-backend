@@ -66,38 +66,28 @@ class AdminController extends Controller
 
     public function custom_fixture(Request $request, CustomFixture $fixture)
     {
-        $cstm_fixture = $fixture->where('fixture_id', $request->input('fixture_id'))->latest()->first();
-
-        if($cstm_fixture == null)
-        {
-            $fixture->create([
-                'fixture_id' => $request->input('fixture_id'),
-                'fixture_date' => $request->input('fixture_date'),
+        $fixture
+            ->where('fixture_id', $request->input('fixture_id'))
+            ->update([
+                'home' => $request->input('home'),
+                'away' => $request->input('away'),
                 'league_name' => $request->input('league_name'),
-                'country' => $request->input('country'),
-                'home' => $request->input('home_team'),
-                'away' => $request->input('away_team'),
-                'home_odds' => $request->input('home_odds'),
-                'draw_odds' => $request->input('draw_odds'),
-                'away_odds' => $request->input('away_odds')
+                'country' => $request->input('country')
             ]);
-        } else {
-            $fixture->where('fixture_id', $request->input('fixture_id'))->update([
-                'fixture_date' => $request->input('fixture_date'),
-                'league_name' => $request->input('league_name'),
-                'country' => $request->input('country'),
-                'home' => $request->input('home_team'),
-                'away' => $request->input('away_team'),
-                'home_odds' => $request->input('home_odds'),
-                'draw_odds' => $request->input('draw_odds'),
-                'away_odds' => $request->input('away_odds')
-            ]);
-        }
-       
 
         return response()
                     ->json([
-                        'message' => 'Fixture added succesfully'
+                        'message' => 'Fixture updated succesfully'
+                    ]);
+    }
+
+    public function fixture_ids(CustomFixture $fixture)
+    {
+        $fixtures = $fixture->get('fixture_id');
+
+        return response()
+                    ->json([
+                        'data' => $fixtures
                     ]);
     }
 }

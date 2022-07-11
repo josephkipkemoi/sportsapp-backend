@@ -65,19 +65,21 @@ class AdminTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_can_post_custom_fixture()
+    public function test_can_update_fixture_team_names()
     {
-        $response = $this->post('api/admin/fixture', [
-            'fixture_id' => $this->faker()->numberBetween(1,100000),
-            'fixture_date' => $this->faker()->date(),
+        $response = $this->patch('api/admin/fixture', [
             'league_name' => $this->faker()->word(),
             'country' => $this->faker()->word(),
-            'home_team' => $this->faker()->word(),
-            'away_team' => $this->faker()->word(),
-            'home_odds' => $this->faker()->numberBetween(1,4),
-            'draw_odds' => $this->faker()->numberBetween(2,5),
-            'away_odds' => $this->faker()->numberBetween(3,6),
+            'home' => $this->faker()->word(),
+            'away' => $this->faker()->word(),
         ]);
+
+        $response->assertOk();
+    }
+
+    public function test_can_get_fixture_ids()
+    {
+        $response = $this->get('api/admin/fixtures/ids');
 
         $response->assertOk();
     }
