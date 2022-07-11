@@ -83,7 +83,7 @@ class AdminController extends Controller
 
     public function fixture_ids(CustomFixture $fixture)
     {
-        $fixtures = $fixture->get('fixture_id');
+        $fixtures = $fixture->whereNotNull('odds')->get('fixture_id');
 
         return response()
                     ->json([
