@@ -67,8 +67,8 @@ class CustomFixtureController extends Controller
 
     public function post_odds(CustomFixture $fixture)
     {
-        $fixture_ids = $fixture->take(2)->get('fixture_id');
-
+        $fixture_ids = $fixture->take(5)->get('fixture_id');
+ 
         foreach($fixture_ids as $fixture_id)
         {
             $fix_id = $fixture_id->fixture_id; 
@@ -78,7 +78,7 @@ class CustomFixtureController extends Controller
             // 'X-RapidAPI-Key' =>  'b2c138608fmsh6567bc9b793b465p1a4945jsnb15afccb7248'
             'x-apisports-key' => '9ed9fc9b6c13eab1282b3edd1592ad56'
             ])->get("https://v3.football.api-sports.io/odds?fixture=${fix_id}&bookmaker=8");
-      
+
             // $data[] = array(
             //     'odds' => $response->object()->response
             // );
