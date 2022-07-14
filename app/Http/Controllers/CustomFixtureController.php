@@ -11,20 +11,12 @@ class CustomFixtureController extends Controller
     //
     public function fixture(CustomFixture $fixture)
     {
-        $response = $fixture->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
-        $custom_fixture = $fixture->where('fixture_id', 962132022)->latest()->first();
-        
-        $data = [];
-
-        foreach($response as $fix)
-        {
-            $fix->unserialized_odds = unserialize(($fix->odds));
-            array_push($data, $fix);
-        }
+        $response = $fixture
+                        ->whereNotNull('odds')
+                        ->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
   
         return response()->json([
-            'fixtures' => $data,
-            'custom_fixture' => $custom_fixture
+            'fixtures' => $response,
         ]);
     }
  
@@ -67,7 +59,7 @@ class CustomFixtureController extends Controller
 
     public function post_odds(CustomFixture $fixture)
     {
-        $fixture_ids = $fixture->take(15)->get('fixture_id');
+        $fixture_ids = $fixture->take(2)->get('fixture_id');
  
         foreach($fixture_ids as $fixture_id)
         {
@@ -79,16 +71,12 @@ class CustomFixtureController extends Controller
             'x-apisports-key' => '9ed9fc9b6c13eab1282b3edd1592ad56'
             ])->get("https://v3.football.api-sports.io/odds?fixture=${fix_id}&bookmaker=8");
 
-            // $data[] = array(
-            //     'odds' => $response->object()->response
-            // );
-
             foreach($response->object()->response as $val)
             {
-           
+             
                 $fixture->where('fixture_id', $val->fixture->id)
                         ->update([
-                            'odds' => serialize($val)
+                            'odds' => json_encode($val->bookmakers[0]->bets)
                         ]);
             }
         }
