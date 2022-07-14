@@ -83,4 +83,11 @@ class AdminTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_remove_all_fixture()
+    {
+        $response = $this->delete('api/admin/fixtures/remove');
+
+        $response->assertOk();
+    }
 }

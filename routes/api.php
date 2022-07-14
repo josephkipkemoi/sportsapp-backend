@@ -94,5 +94,6 @@ Route::patch('/admin/users/{user_id}/bets/{session_id}/update', [AdminController
 Route::patch('/admin/users/{user_id}/balance/update', [AdminController::class, 'update_balance']);
 Route::patch('admin/fixture', [AdminController::class, 'custom_fixture']);
 Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
+Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
 
 require __DIR__.'/auth.php';

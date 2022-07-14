@@ -90,4 +90,14 @@ class AdminController extends Controller
                         'data' => $fixtures
                     ]);
     }
+
+    public function remove(CustomFixture $fixture)
+    {
+        $fixture->whereNotNull('fixture_id')->delete();
+
+        return response()
+                    ->json([
+                        'message' => 'Data deleted succesfully'
+                    ]);
+    }
 }
