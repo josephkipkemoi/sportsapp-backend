@@ -16,4 +16,16 @@ class SupportController extends Controller
             'message' => 'Message Received. You will be contacted shortly'
         ]);
     }
+
+    public function index(Support $support)
+    {
+        $messages = $support
+                        ->orderBy('created_at', 'DESC')
+                        ->get(['name', 'email', 'phone_number', 'message']);
+
+        return response()
+                ->json([
+                'messages' => $messages
+                ]);
+    }
 }

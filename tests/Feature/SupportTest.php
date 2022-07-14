@@ -26,4 +26,19 @@ class SupportTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_can_get_messages_received()
+    {
+        $this->post('api/support', [
+            'name' => $this->faker()->name(),
+            'email' => $this->faker()->email(),
+            'phone_number' => $this->faker()->numberBetween(10,100000),
+            'message' => $this->faker()->text(),
+            // 'file' => $this->faker()->image() 
+        ]);
+        
+        $response = $this->get('api/support/messages');
+
+        $response->assertOk();
+    }
 }

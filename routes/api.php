@@ -70,6 +70,7 @@ Route::get('/social-share', [SocialShareButtonsController::class, 'index']);
 
 // Customer Care Message
 Route::post('/support', [SupportController::class, 'store']);
+Route::get('/support/messages', [SupportController::class, 'index']);
 
 // Custom Fixture
 Route::get('/custom_fixture', [CustomFixtureController::class, 'fixture']);
