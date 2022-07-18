@@ -23,4 +23,8 @@ class CustomFixture extends Model
         'draw_odds',
         'away_odds'
     ];
+
+    // protected $casts = [     
+    //     'odds' => 'array'
+    // ];
 }
