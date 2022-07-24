@@ -6,6 +6,7 @@ use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BetslipCartController;
 use App\Http\Controllers\BetslipController;
 use App\Http\Controllers\BetslipHistoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FavoritesController;
@@ -86,6 +87,11 @@ Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
 // Mpesa Transactions
 Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
+
+// Updated Cart endpoints
+Route::post('/users/fixtures/cart', [CartController::class, 'store']);
+Route::get('/users/fixtures/cart/{cart:id}', [CartController::class, 'show']);
+Route::get('/users/fixtures/carts', [CartController::class, 'index']);
 
 // Admin Test
 Route::get('/admin/users', [AdminController::class, 'index']);

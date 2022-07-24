@@ -28,23 +28,23 @@ class CheckoutCartTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_can_get_checkout_bets()
-    {
-        $user = User::factory()->create();
+    // public function test_can_get_checkout_bets()
+    // {
+    //     $user = User::factory()->create();
 
-        $betslip = $this->post('api/checkout', [
-            'session_id' => $this->faker()->numberBetween(10000,10000),
-            'user_id' =>  $user->id,
-            'stake_amount' => $this->faker()->numberBetween(10000,10000),
-            'total_odds' => $this->faker()->numberBetween(10000,10000),
-            'final_payout' => $this->faker()->numberBetween(10000,10000)
-        ]);
-        $session_id = json_decode($betslip->getContent())->data->session_id;
+    //     $betslip = $this->post('api/checkout', [
+    //         'session_id' => $this->faker()->numberBetween(10000,10000),
+    //         'user_id' =>  $user->id,
+    //         'stake_amount' => $this->faker()->numberBetween(10000,10000),
+    //         'total_odds' => $this->faker()->numberBetween(10000,10000),
+    //         'final_payout' => $this->faker()->numberBetween(10000,10000)
+    //     ]);
+    //     $session_id = json_decode($betslip->getContent())->data->session_id;
 
-        $response = $this->get("api/checkouts/users/{$user->id}/sessions/{$session_id}");
+    //     $response = $this->get("api/checkouts/users/{$user->id}/sessions/{$session_id}");
 
-        $response->assertOk();
-    }
+    //     $response->assertOk();
+    // }
 
     // public function test_can_update_active_bets()
     // {
