@@ -49,7 +49,7 @@ class MpesaController extends Controller
         ];
 
         $transaction->create([
-            'data' => json_encode($request)
+            'data' => json_encode(response()->getBody())
         ]);
 
         return response()->json([
