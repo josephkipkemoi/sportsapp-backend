@@ -44,16 +44,19 @@ class MpesaController extends Controller
     public function hook(Request $request, MpesaTransaction $transaction)
     {
         $message = [
-            'ResponseCode' => '000000',
-            'ResponseDesc' => 'success'
+            "MerchantRequestID" => "29115-34620561-1",    
+            "CheckoutRequestID" => "ws_CO_191220191020363925",    
+            "ResponseCode" => "0",    
+            "ResponseDescription" => "Success. Request accepted for processing",    
+            "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
         $transaction->create([
-            'data' => json_encode(response()->json())
+            'data' => json_encode($request->getContent())
         ]);
 
-        return response()->json([
-            'message' => $message
-        ]);
+        response()->json($message);
+
+        echo $request->getContent();
     }
 }
