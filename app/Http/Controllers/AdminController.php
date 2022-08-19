@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JackpotRequest;
 use App\Models\Balance;
 use App\Models\CheckoutCart;
 use App\Models\CustomFixture;
+use App\Models\Jackpot;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -100,4 +102,5 @@ class AdminController extends Controller
                         'message' => 'Data deleted succesfully'
                     ]);
     }
+
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\CheckoutCartController;
 use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
+use App\Http\Controllers\JackpotController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SoccerController;
@@ -108,5 +109,6 @@ Route::patch('/admin/users/{user_id}/balance/update', [AdminController::class, '
 Route::patch('admin/fixture', [AdminController::class, 'custom_fixture']);
 Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
 Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
+Route::post('/admin/jackpot', [JackpotController::class, 'store']);
 
 require __DIR__.'/auth.php';

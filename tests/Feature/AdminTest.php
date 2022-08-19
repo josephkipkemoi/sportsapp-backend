@@ -90,4 +90,18 @@ class AdminTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_post_jackpot_games()
+    {
+        $response = $this->post('api/admin/jackpots', [
+            'jp_time' => $this->faker()->time(),
+            'jp_home' => $this->faker()->word(6),
+            'jp_away' => $this->faker()->word(4),
+            'jp_home_odds' => $this->faker()->numberBetween(1,3),
+            'jp_draw_odds' => $this->faker()->numberBetween(2,4),
+            'jp_away_odds' => $this->faker()->numberBetween(1,3)
+        ]);
+
+        $response->assertOk();
+    }
 }

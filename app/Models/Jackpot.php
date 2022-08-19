@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialShare extends Model
+class Jackpot extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'codes',
-        'share_code'
-    ];
-
-    protected $casts = [
-        'codes' => 'array'
+        'jp_time',
+        'jp_home',
+        'jp_away',
+        'jp_home_odds',
+        'jp_draw_odds',
+        'jp_away_odds'
     ];
 }
