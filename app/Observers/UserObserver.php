@@ -18,7 +18,8 @@ class UserObserver
         //
         $user->balance()->create([
             'amount' => 0,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'receipt_no' => 'pinaclebet'
         ]);
     }
 

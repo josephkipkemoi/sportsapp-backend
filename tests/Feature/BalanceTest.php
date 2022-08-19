@@ -21,13 +21,15 @@ class BalanceTest extends TestCase
      
         $response = $this->post("api/users/{$user->id}/balance", [
             'user_id' => $user->id,
-            'amount' =>  100
+            'amount' =>  100,
+            'receipt_no' => 'pinaclebet'
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);
         $this->post("api/users/{$user->id}/balance", [
             'user_id' => $user->id,
-            'amount' =>  200
+            'amount' =>  200,
+            'receipt_no' => 'pinaclebet'
         ], [
             'x-sportsapp-key' => '8afb3240-f39f-4bc6-b697-b2faacea3199'
         ]);

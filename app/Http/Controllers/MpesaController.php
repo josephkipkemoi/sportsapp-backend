@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Balance;
 use App\Models\MpesaTransaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -13,35 +15,16 @@ class MpesaController extends Controller
     //
     public function index(Request $request, MpesaTransaction $transaction)
     {
-        $endpoint =  'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-        
-        // $timestamp = Carbon::now()->toDateTimeString();
-
-        // $response = Http::withHeaders([
-        //     'Authorization' => 'Bearer 5XH53zBuAK6bdikzT2GG37sokxX9',
-        //     'Content-Type' => 'application/json'
-        // ])->post($endpoint, [
-        //     'BusinessShortCode' => 174379,
-        //     'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIwNzA0MTQwMDQ4',
-        //     'Timestamp' => '20220704140048',
-        //     'TransactionType' => 'CustomerPayBillOnline',
-        //     'Amount' => 1,
-        //     'PartyA' => 254700545727,
-        //     'PartyB' => 174379,
-        //     'PhoneNumber' => 254700545727,
-        //     'CallBackURL' => 'https://infinite-coast-08848.herokuapp.com/api/mpesa/hooks',
-        //     'AccountReference' => 'BET360',
-        //     'TransactionDesc' => 'Deposit'
-        // ]);
+      
         $data = $transaction->all();
 
         return response()->json([
             'data' => $data
         ]);
-        // dd($response);
+
     }
 
-    public function hook(Request $request, MpesaTransaction $transaction)
+    public function hook(Request $request, User $user)
     {
         $message = [
             "MerchantRequestID" => "29115-34620561-1",    
@@ -51,12 +34,56 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        $transaction->create([
-            'data' => json_encode($request->getContent())
-        ]);
+        // $response = json_decode($request->getContent());
+
+        // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+        // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+
+        // $user
+        //     ->where('phone_number', '=' , $mobile_number)
+        //     ->balance([
+        //         'amount' => $amount,
+        //         'receipt_no' => $receipt_no
+        //     ]);;
 
         response()->json($message);
 
-        echo $request->getContent();
     }
+
+    public function push(Request $request)
+    {
+        $endpoint = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
+        $short_code = 174379;
+        $timestamp = $request->input('timestamp');
+      
+        $decoded =  $short_code . $passkey . $timestamp;
+        
+        $encoded = base64_encode($decoded);
+
+        $data =[
+            'BusinessShortCode' => 174379,
+            'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIwODAzMTEzNzUw',
+            'Timestamp' =>  '20220803113750',
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => $request->input('amount'),
+            'PartyA' => $request->input('phone_number'),
+            'PartyB' => 174379,
+            'PhoneNumber' => $request->input('phone_number'),
+            'CallBackURL' => 'https://api.pinaclebet.com/api/mpesa/hooks',
+            'AccountReference' => 'Pinaclebet',
+            'TransactionDesc' => 'Deposit'
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer VxJvBNPs93UNsV5LjrHgaMZ9u2Z5',
+            'Content-Type' => 'application/json'
+        ])->post($endpoint, $data);
+ 
+        return $response;
+        
+  }
+    
+
 }

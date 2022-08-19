@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Balance extends Model
+class SocialShare extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'amount',
         'user_id',
-        'receipt_no'
+        'codes',
+        'share_code'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $casts = [
+        'codes' => 'array'
+    ];
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
+use App\Http\Controllers\SoccerController;
 use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
 use Illuminate\Http\Request;
@@ -68,6 +69,8 @@ Route::delete('/users/betslips/delete', [BetslipHistoryController::class, 'delet
 
 // Social share URI
 Route::get('/social-share', [SocialShareButtonsController::class, 'index']);
+Route::post('/social-share/codes', [SocialShareButtonsController::class, 'store']);
+Route::get('/social-share/codes/show', [SocialShareButtonsController::class, 'show']);
 
 // Customer Care Message
 Route::post('/support', [SupportController::class, 'store']);
@@ -80,6 +83,9 @@ Route::get('/fixture/search', [CustomFixtureController::class, 'search']);
 Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixture']);
 Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
 
+// Soccer Fixtures
+Route::get('/soccer/fixtures', [SoccerController::class, 'index']);
+
 // User Favorites
 Route::post('/favorites', [FavoritesController::class, 'store']);
 Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
@@ -87,6 +93,7 @@ Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
 // Mpesa Transactions
 Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
+Route::post('/mpesa/push', [MpesaController::class, 'push']);
 
 // Updated Cart endpoints
 Route::post('/users/fixtures/cart', [CartController::class, 'store']);

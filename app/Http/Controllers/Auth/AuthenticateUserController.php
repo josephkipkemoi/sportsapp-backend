@@ -10,19 +10,9 @@ use Illuminate\Http\Request;
 class AuthenticateUserController extends Controller
 {
     //
-    public function show(Request $request, Session $session, User $user)
+    public function show(Request $request)
     {
-        $user_id = $session
-                        ->where('payload', $request->query('us_s'))
-                        ->firstOrFail()
-                        ->user_id;
-     
-        $user_info = $user->where('id',$user_id)->get(['id', 'country_residence', 'email','phone_number']);
-        
-        return response()->json([
-            'status' => 200,
-            'user' => $user_info
-        ]);
+        return $request->user();
     }
 
     public function index(Request $request, User $user)
