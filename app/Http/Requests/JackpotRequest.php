@@ -30,7 +30,9 @@ class JackpotRequest extends FormRequest
             'jp_away' => ['required'],
             'jp_home_odds' => ['required'],
             'jp_draw_odds' => ['required'],
-            'jp_away_odds' => ['required']
+            'jp_away_odds' => ['required'],
+            'jp_market' => ['required'],
+            'jp_active' => ['boolean']
         ];
     }
 }

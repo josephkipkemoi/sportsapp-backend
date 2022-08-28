@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Balance::class);
     }
+
+    public function jackpotCart()
+    {
+        return $this->hasMany(JackpotCart::class);
+    }
 }

@@ -93,13 +93,101 @@ class AdminTest extends TestCase
 
     public function test_can_post_jackpot_games()
     {
-        $response = $this->post('api/admin/jackpots', [
+        $response = $this->post('api/admin/jackpot', [
             'jp_time' => $this->faker()->time(),
             'jp_home' => $this->faker()->word(6),
             'jp_away' => $this->faker()->word(4),
             'jp_home_odds' => $this->faker()->numberBetween(1,3),
             'jp_draw_odds' => $this->faker()->numberBetween(2,4),
-            'jp_away_odds' => $this->faker()->numberBetween(1,3)
+            'jp_away_odds' => $this->faker()->numberBetween(1,3),
+            'jp_market' => 'Mega Jackpot',
+            'jp_active' => true,
+        ]);
+
+        $response->assertCreated();
+    }
+
+    public function test_can_get_jackpot_games()
+    {
+        $response = $this->get('api/jackpot?jp_market=Mega Jackpot');
+
+        $response->assertOk();
+    }
+
+    public function test_can_remove_single_game()
+    {
+        $jp_market = $this->post('api/admin/jackpot', [
+            'jp_time' => $this->faker()->time(),
+            'jp_home' => $this->faker()->word(6),
+            'jp_away' => $this->faker()->word(4),
+            'jp_home_odds' => $this->faker()->numberBetween(1,3),
+            'jp_draw_odds' => $this->faker()->numberBetween(2,4),
+            'jp_away_odds' => $this->faker()->numberBetween(1,3),
+            'jp_market' => 'Mega Jackpot',
+            'jp_active' => true,
+        ]);
+
+        $jp_martket_id = json_decode($jp_market->getContent())->id;
+
+        $response = $this->delete("api/jackpot/{$jp_martket_id}?jp_market=Mega Jackpot");
+
+        $response->assertOk();
+    }
+
+    public function test_can_remove_all_games()
+    {
+        // $response = $this->delete('api/admin/jackpot/remove');
+
+        // $response->assertOk();
+    }
+
+    public function test_can_update_jackpot_fixture()
+    {
+        $jp_market = $this->post('api/admin/jackpot', [
+            'jp_time' => $this->faker()->time(),
+            'jp_home' => $this->faker()->word(6),
+            'jp_away' => $this->faker()->word(4),
+            'jp_home_odds' => $this->faker()->numberBetween(1,3),
+            'jp_draw_odds' => $this->faker()->numberBetween(2,4),
+            'jp_away_odds' => $this->faker()->numberBetween(1,3),
+            'jp_market' => 'Mega Jackpot',
+            'jp_active' => true,
+        ]);
+
+        $jp_martket_id = json_decode($jp_market->getContent())->id;
+
+        $response = $this->patch("api/admin/jackpot/{$jp_martket_id}/patch", [
+            'jp_time' => $this->faker()->time(),
+            'jp_home' => $this->faker()->word(6),
+            'jp_away' => $this->faker()->word(4),
+            'jp_home_odds' => $this->faker()->numberBetween(1,3),
+            'jp_draw_odds' => $this->faker()->numberBetween(2,4),
+            'jp_away_odds' => $this->faker()->numberBetween(1,3),
+            'jp_market' => '5 Jackpot',
+            'jp_active' => true,
+        ]);
+
+        $response->assertOk();
+
+    }
+
+    public function test_can_deactivate_jackpot_market()
+    {
+        $jp_market = $this->post('api/admin/jackpot', [
+            'jp_time' => $this->faker()->time(),
+            'jp_home' => $this->faker()->word(6),
+            'jp_away' => $this->faker()->word(4),
+            'jp_home_odds' => $this->faker()->numberBetween(1,3),
+            'jp_draw_odds' => $this->faker()->numberBetween(2,4),
+            'jp_away_odds' => $this->faker()->numberBetween(1,3),
+            'jp_market' => 'Mega Jackpot',
+            'jp_active' => true,
+        ]);
+
+        $jp_market = json_decode($jp_market->getContent())->jp_market;
+
+        $response = $this->patch("api/admin/jackpot/{$jp_market}/status", [
+            'jp_active' => true
         ]);
 
         $response->assertOk();

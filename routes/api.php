@@ -109,6 +109,15 @@ Route::patch('/admin/users/{user_id}/balance/update', [AdminController::class, '
 Route::patch('admin/fixture', [AdminController::class, 'custom_fixture']);
 Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
 Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
-Route::post('/admin/jackpot', [JackpotController::class, 'store']);
+
+// Jackpot Routes
+Route::post('admin/jackpot', [JackpotController::class, 'store']);
+Route::post('jackpot/{id}/cart', [JackpotController::class, 'store_cart']);
+Route::get('users/jackpot/{id}/history', [JackpotController::class, 'user_index']);
+Route::get('jackpot', [JackpotController::class, 'index']);
+Route::delete('jackpot/{id}', [JackpotController::class, 'delete']);
+Route::delete('admin/jackpot/remove', [JackpotController::class, 'remove']);
+Route::patch('admin/jackpot/{id}/patch', [JackpotController::class, 'patch']);
+Route::patch('admin/jackpot/{jp_market}/status', [JackpotController::class, 'status']);
 
 require __DIR__.'/auth.php';

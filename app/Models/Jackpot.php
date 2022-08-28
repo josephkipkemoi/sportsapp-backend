@@ -15,6 +15,12 @@ class Jackpot extends Model
         'jp_away',
         'jp_home_odds',
         'jp_draw_odds',
-        'jp_away_odds'
+        'jp_away_odds',
+        'jp_market',
+        'jp_active'
+    ];
+
+    protected $casts = [
+        'jp_active' => 'boolean'
     ];
 }
