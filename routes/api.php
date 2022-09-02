@@ -91,6 +91,8 @@ Route::get('/soccer/fixtures', [SoccerController::class, 'index']);
 // User Favorites
 Route::post('/favorites', [FavoritesController::class, 'store']);
 Route::get('/users/{user_id}/favorites', [FavoritesController::class, 'show']);
+Route::delete('/users/{user_id}/favorites/remove', [FavoritesController::class, 'remove']);
+Route::delete('/users/{user_id}/favorites/{favourite_id}/remove', [FavoritesController::class, 'delete']);
 
 // Mpesa Transactions
 Route::get('/mpesa', [MpesaController::class, 'index']);

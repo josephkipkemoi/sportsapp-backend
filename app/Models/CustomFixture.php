@@ -21,7 +21,8 @@ class CustomFixture extends Model
         'league_round',
         'home_odds',
         'draw_odds',
-        'away_odds'
+        'away_odds',
+        'favorite_active'
     ];
 
     // protected $casts = [     

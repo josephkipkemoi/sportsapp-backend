@@ -13,7 +13,17 @@ class CustomFixtureController extends Controller
     {
         $response = $fixture
                         ->whereNotNull('odds')
-                        ->get(['fixture_id', 'fixture_date', 'league_name', 'country', 'home', 'away', 'logo', 'flag', 'odds']);
+                        ->get([ 'fixture_id', 
+                                'fixture_date', 
+                                'league_name', 
+                                'country', 
+                                'home', 
+                                'away', 
+                                'logo', 
+                                'flag', 
+                                'odds',
+                                'favorite_active'
+                            ]);
   
         return response()->json([
             'fixtures' => $response,
