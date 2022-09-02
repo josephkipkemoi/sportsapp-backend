@@ -187,7 +187,7 @@ class AdminTest extends TestCase
         $jp_market = json_decode($jp_market->getContent())->jp_market;
 
         $response = $this->patch("api/admin/jackpot/{$jp_market}/status", [
-            'jp_active' => 1
+            'jp_active' => 0
         ]);
 
         $response->assertOk();
