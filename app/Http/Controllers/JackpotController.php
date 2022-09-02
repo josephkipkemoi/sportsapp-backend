@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JackpotRequest;
+use App\Http\Requests\StoreJackpotMarketRequest;
 use App\Models\Jackpot;
 use App\Models\JackpotCart;
+use App\Models\JackpotMarket;
 use Illuminate\Http\Request;
 
 class JackpotController extends Controller
@@ -56,5 +58,29 @@ class JackpotController extends Controller
     public function status(Jackpot $jackpot, $jp_market, Request $request) 
     {
         return $jackpot->where('jp_market', $jp_market)->update(['jp_active' => $request->input('jp_active')]);
+    }
+    
+    public function jackpot_prize(JackpotMarket $jackpot_market, StoreJackpotMarketRequest $request) 
+    {
+        $mega_jackpot = $jackpot_market->where('market', 'Mega Jackpot')->get()->count();
+        $five_jackpot = $jackpot_market->where('market', 'Five Jackpot')->get()->count();
+       
+        if($mega_jackpot == 0 || $five_jackpot == 0) 
+        {
+            return $jackpot_market->create($request->validated());
+        }
+
+        return $jackpot_market->where('market', $request->input('market'))->update($request->validated());
+    }
+
+    public function jackpot_index(JackpotMarket $jackpot_market)
+    {
+        $jackpot_prizes = $jackpot_market->get(['market', 'jackpot_prize']);
+        
+        return response()->json([
+            'data' => $jackpot_prizes,
+            'MegaCount' => 10,
+            'FiveCount' => 5
+        ]);
     }
 }

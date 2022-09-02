@@ -10,6 +10,7 @@ use Tests\TestCase;
 class JackpotTest extends TestCase
 {
     use WithFaker;
+    // use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -42,5 +43,27 @@ class JackpotTest extends TestCase
   
         $response->assertOk();
 
+    }
+
+    public function test_can_post_and_update_jackpot_prize_win()
+    {
+        $response = $this->post("api/admin/jackpot/prize", [
+            'market' => 'Mega Jackpot',
+            'jackpot_prize' => $this->faker()->numberBetween(50,5000)
+        ]);
+
+        $this->post("api/admin/jackpot/prize", [
+            'market' => 'Five Jackpot',
+            'jackpot_prize' => $this->faker()->numberBetween(10,1000)
+        ]);
+
+        $response->assertOk();
+    }
+
+    public function test_cam_get_jackpot_prize_win()
+    {
+        $response = $this->get('api/jackpot/prize');
+
+        $response->assertOk();
     }
 }

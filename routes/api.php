@@ -120,6 +120,8 @@ Route::delete('jackpot/{id}', [JackpotController::class, 'delete']);
 Route::delete('admin/jackpot/remove', [JackpotController::class, 'remove']);
 Route::patch('admin/jackpot/{id}/patch', [JackpotController::class, 'patch']);
 Route::patch('admin/jackpot/{jp_market}/status', [JackpotController::class, 'status']);
+Route::post('admin/jackpot/prize', [JackpotController::class, 'jackpot_prize']);
+Route::get('jackpot/prize', [JackpotController::class, 'jackpot_index']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
