@@ -12,6 +12,7 @@ use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\JackpotController;
+use App\Http\Controllers\LiveFixturesController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
 use App\Http\Controllers\SoccerController;
@@ -119,5 +120,9 @@ Route::delete('jackpot/{id}', [JackpotController::class, 'delete']);
 Route::delete('admin/jackpot/remove', [JackpotController::class, 'remove']);
 Route::patch('admin/jackpot/{id}/patch', [JackpotController::class, 'patch']);
 Route::patch('admin/jackpot/{jp_market}/status', [JackpotController::class, 'status']);
+
+// Live Fixtures Routes
+Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
+Route::get('fixtures/live', [LiveFixturesController::class, 'index']);
 
 require __DIR__.'/auth.php';
