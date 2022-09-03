@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         return response()->json([
-            'session_uid' => auth()->user()->id,
+            'uu_id' => auth()->user(),
             'session_cookie' =>  auth()->user()->createToken('apiToken')->plainTextToken
         ]);
     }

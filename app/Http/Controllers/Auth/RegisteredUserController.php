@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return response()->json([
-            'user_id' => $user->id,
+            'user' => $user,
             'session_payload' => $session_payload->payload
         ]);
     }
