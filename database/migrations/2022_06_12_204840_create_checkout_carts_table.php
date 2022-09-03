@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('checkout_carts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('session_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('stake_amount');
+            $table->integer('user_id');
+            $table->integer('stake_amount');
             $table->decimal('total_odds');
             $table->float('final_payout');
             $table->string('betslip_status')->default('Active');
