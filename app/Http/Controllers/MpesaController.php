@@ -77,7 +77,7 @@ class MpesaController extends Controller
         ];
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer P7GkFKfk617c2GFZDGVSwHqQkWbQ',
+            'Authorization' => 'Bearer 1XFY1LBzj1c5QDumxsNEVfYls7ry',
             'Content-Type' => 'application/json'
         ])->post($endpoint, $data);
  
