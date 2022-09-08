@@ -24,18 +24,14 @@ class RegisteredUserController extends Controller
      */
     public function store(CreateUserRequest $request, Session $session)
     {
-        $country = $request->validated()['country_residence'];
-        $email = $request->validated()['email'];
         $phone_number = $request->validated()['phone_number'];
         $password = $request->validated()['password'];
-        
+
         $user = User::create([
-            'country_residence' => $country,
-            'email' => $email,
             'phone_number' => $phone_number,
             'password' => Hash::make($password),
         ]);
-
+  
         event(new Registered($user));
 
         $session_payload = $session->create([

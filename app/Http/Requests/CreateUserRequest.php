@@ -25,8 +25,8 @@ class CreateUserRequest extends FormRequest
     {
         return [
             //
-            'country_residence' => 'required',
-            'email' => 'required | email', 
+            'country_residence' => 'string',
+            'email' => 'email', 
             'phone_number' => 'required',
             'password' => 'required',
             'password_confirmation' => 'required'
