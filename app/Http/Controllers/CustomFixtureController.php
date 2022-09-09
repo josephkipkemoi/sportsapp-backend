@@ -69,7 +69,7 @@ class CustomFixtureController extends Controller
 
     public function post_odds(CustomFixture $fixture)
     {
-        $fixture_ids = $fixture->take(15)->get('fixture_id');
+        $fixture_ids = $fixture->take(25)->get('fixture_id');
  
         foreach($fixture_ids as $fixture_id)
         {
