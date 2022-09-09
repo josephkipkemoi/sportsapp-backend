@@ -12,7 +12,7 @@ class CustomFixtureController extends Controller
     public function fixture(CustomFixture $fixture)
     {
         $response = $fixture
-                        ->whereNotNull('odds')
+                        // ->whereNotNull('odds')
                         ->get([ 'fixture_id', 
                                 'fixture_date', 
                                 'league_name', 
