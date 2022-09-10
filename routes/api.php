@@ -18,6 +18,7 @@ use App\Http\Controllers\OddController;
 use App\Http\Controllers\SoccerController;
 use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\TooltipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -130,5 +131,9 @@ Route::get('jackpot/prize', [JackpotController::class, 'jackpot_index']);
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
 Route::get('fixtures/live', [LiveFixturesController::class, 'index']);
+
+// Tooltip Routes
+Route::get('tooltips/status', [TooltipController::class, 'show']);
+Route::post('tooltips/users/{user_id}/status/update', [TooltipController::class, 'update']);
 
 require __DIR__.'/auth.php';
