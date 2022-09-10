@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JackpotRequest;
 use App\Models\Balance;
+use App\Models\Cart;
 use App\Models\CheckoutCart;
 use App\Models\CustomFixture;
 use App\Models\Jackpot;
@@ -23,7 +24,7 @@ class AdminController extends Controller
                     ]);
     }
 
-    public function show(User $user, Request $request, CheckoutCart $checkout_cart)
+    public function show(User $user, Request $request, Cart $checkout_cart)
     {
         $user_profile = $user->where('id', $request->user_id)->latest()->first();
   
@@ -39,13 +40,13 @@ class AdminController extends Controller
                     ]);
     }
 
-    public function update_bethistory(CheckoutCart $checkout_cart, Request $request)
+    public function update_bethistory(Cart $checkout_cart, Request $request)
     {
          $checkout_cart
                     ->where('user_id', $request->user_id)
-                    ->where('session_id', $request->session_id)
+                    ->where('cart_id', $request->session_id)
                     ->update([
-                        'betslip_status' => $request->input('bet_status')
+                        'bet_status' => $request->input('bet_status')
                         ]);
 
         return response()

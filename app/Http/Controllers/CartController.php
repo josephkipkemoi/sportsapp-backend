@@ -20,6 +20,12 @@ class CartController extends Controller
 
     public function index(Cart $cart, Request $request)
     {
+        if($request->query('bet_status') == 'All') {
+            return $cart->where('user_id', $request->query('user_id'))
+            ->orderBy('created_at', 'DESC')
+            ->paginate(8);
+        }
+
         $carts = $cart
                     ->where('user_id', $request->query('user_id'))
                     ->where('bet_status', $request->query('bet_status'))

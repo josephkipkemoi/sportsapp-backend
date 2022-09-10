@@ -119,4 +119,16 @@ class CustomFixtureController extends Controller
                         'data' => $response
                     ]);
     }
+
+    public function fixture_ids(CustomFixture $fixture)
+    {
+        return $fixture->whereNull('odds')->get('fixture_id');
+    }
+
+    public function fixture_odds($fixture_id, CustomFixture $fixture, Request $request)
+    {
+        return $fixture->where('fixture_id', $fixture_id)->update([
+            'odds' => $request->input('odds')
+        ]);
+    }
 }

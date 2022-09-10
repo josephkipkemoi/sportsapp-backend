@@ -50,4 +50,20 @@ class CustomFixtureTest extends TestCase
         // dd($response);
         $response->assertOk();
     }
+
+    public function test_can_get_fixture_ids_without_odds()
+    {
+        $response = $this->get('api/fixtures/ids');
+
+        $response->assertOk();
+    }
+
+    public function test_can_post_fixture_odds_where_odds_is_null()
+    {
+        $response = $this->patch('api/fixtures/custom_odds/2', [
+            'odds' => "{}"
+        ]);
+
+        $response->assertOk();
+    }
 }

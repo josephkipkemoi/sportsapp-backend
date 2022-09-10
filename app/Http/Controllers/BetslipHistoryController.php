@@ -26,6 +26,7 @@ class BetslipHistoryController extends Controller
     public function index(CheckoutCart $checkout, Request $request)
     {
         $bet_status = $request->query('bet_status'); 
+
         $checkout_history = $checkout
                                 ->where('user_id', $request->user_id)
                                 ->where('betslip_status', $bet_status)

@@ -84,6 +84,8 @@ Route::get('/custom_fixture/{fixture_id}', [CustomFixtureController::class, 'sho
 Route::get('/fixture/search', [CustomFixtureController::class, 'search']);
 Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixture']);
 Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
+Route::get('fixtures/ids', [CustomFixtureController::class, 'fixture_ids']);
+Route::patch('fixtures/custom_odds/{fixture_id}', [CustomFixtureController::class, 'fixture_odds']);
 
 // Soccer Fixtures
 Route::get('/soccer/fixtures', [SoccerController::class, 'index']);
