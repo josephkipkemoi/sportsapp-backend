@@ -96,7 +96,7 @@ class MpesaController extends Controller
     ]);
 
     $amount = json_decode($transaction->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-    $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+    $number = json_decode($transaction->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
     $user_id = User::where('phone_number', $number)->first()->id;
 
     Balance::where('user_id', $user_id)->increment('amount', $amount);
