@@ -104,6 +104,7 @@ Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
 Route::post('/mpesa/push', [MpesaController::class, 'push']);
 Route::get('/mpesa/auth', [MpesaController::class, 'authMpesa']);
+Route::post('/mpesa/insert', [MpesaController::class, 'insert']);
 
 // Updated Cart endpoints
 Route::post('/users/fixtures/cart', [CartController::class, 'store']);

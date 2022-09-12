@@ -34,7 +34,7 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        // $response = json_decode($request->getContent());
+        $res = json_decode($request->getContent());
         // echo $response;
 
         // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
@@ -42,7 +42,8 @@ class MpesaController extends Controller
         // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
   
         $transaction->create([
-            'data' => $request->getContent()
+            'data' => $request->getContent(),
+            'phone_number' => $res->Body->stkCallback->CallbackMetadata->Item[4]->Value
         ]);
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
@@ -103,8 +104,13 @@ class MpesaController extends Controller
  
   }
 
-  public function insert()
-  {
-    
-  }
+//   public function insert(MpesaTransaction $transaction)
+//   {
+//     $mpesaTransactions = $transaction->all();
+   
+//     // foreach($mpesaTransactions as $trans)
+//     // {
+//         dd($mpesaTransactions);
+//     // }
+//    }
 }
