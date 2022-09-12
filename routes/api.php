@@ -36,16 +36,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['cors'])->get('/user', [AuthenticateUserController::class, 'show']);
 Route::middleware(['cors'])->get('/users/auth_user', [AuthenticateUserController::class, 'index']);
 
-
+// User Account Balance
 Route::post('/users/{user:id}/balance', [BalanceController::class, 'store'])->middleware('token');
 Route::post('/users/{user:id}/balance/decrement', [BalanceController::class, 'decrement']);
 Route::get('/users/balance', [BalanceController::class, 'index'])->middleware('token');
 Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
 Route::get('/users/{user:id}/balance/history', [BalanceController::class, 'show'])->middleware('token');
 
+// Game Fixtures
 Route::post('/fixtures', [FixtureController::class, 'store']);
 Route::get('/fixtures', [FixtureController::class, 'index']);
 
+// Generate Fixtures Odds
 Route::post('/odds', [OddController::class, 'store']);
 Route::get('/odds', [OddController::class, 'index']);
 
@@ -101,6 +103,7 @@ Route::delete('/users/{user_id}/favorites/{favourite_id}/remove', [FavoritesCont
 Route::get('/mpesa', [MpesaController::class, 'index']);
 Route::post('/mpesa/hooks', [MpesaController::class, 'hook']);
 Route::post('/mpesa/push', [MpesaController::class, 'push']);
+Route::get('/mpesa/auth', [MpesaController::class, 'authMpesa']);
 
 // Updated Cart endpoints
 Route::post('/users/fixtures/cart', [CartController::class, 'store']);

@@ -34,18 +34,18 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        // $response = json_decode($request->getContent());
+        $response = json_decode($request->getContent());
 
-        // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-        // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-        // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+        $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+        $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
 
-        // $user
-        //     ->where('phone_number', '=' , $mobile_number)
-        //     ->balance([
-        //         'amount' => $amount,
-        //         'receipt_no' => $receipt_no
-        //     ]);;
+        $user
+            ->where('phone_number', '=' , $mobile_number)
+            ->balance([
+                'amount' => $amount,
+                'receipt_no' => $receipt_no
+            ]);
 
         response()->json($message);
 
@@ -61,6 +61,7 @@ class MpesaController extends Controller
         $decoded =  $short_code . $passkey . $timestamp;
         
         $encoded = base64_encode($decoded);
+        $token =  $request->input('token');
 
         $data =[
             'BusinessShortCode' => 174379,
@@ -77,13 +78,25 @@ class MpesaController extends Controller
         ];
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer 1XFY1LBzj1c5QDumxsNEVfYls7ry',
+            'Authorization' => "Bearer $token",
             'Content-Type' => 'application/json'
         ])->post($endpoint, $data);
  
         return $response;
         
   }
-    
+ 
+  public function authMpesa()
+  {
+    $endpoint = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+
+    $reponse = Http::withBasicAuth(
+    'Azs2KejU1ARvIL5JdJsARbV2gDrWmpOB',
+    'hipGvFJbOxri330c'
+    )->get($endpoint);
+ 
+    return $reponse;
+ 
+  }
 
 }
