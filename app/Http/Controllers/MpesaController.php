@@ -34,16 +34,16 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        $response = json_decode($request->getContent());
-        echo $response;
-        if( $response == true) {
-            // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-            // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-            // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
-            $transaction->create([
-                'data' => "$response"
-            ]);
-        };
+        // $response = json_decode($request->getContent());
+        // echo $response;
+
+        // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+        // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+  
+        // $transaction->create([
+        //     'data' => "$response"
+        // ]);
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
         //     ->balance([
