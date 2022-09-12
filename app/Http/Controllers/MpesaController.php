@@ -34,14 +34,11 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        if($request->getContent()) {
-            $response = json_decode($request->getContent());
+            // $response = json_decode($request->getContent());
+        
+        MpesaController::insert($request->input('phone_number'),$request->getContent());
 
-            $transaction->create([
-                'data' =>$response
-            ]);
-        }
-   
+        
         // echo $response;
 
         // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
@@ -90,6 +87,7 @@ class MpesaController extends Controller
             'Authorization' => "Bearer $token",
             'Content-Type' => 'application/json'
         ])->post($endpoint, $data);
+
  
         return $response;
         
@@ -108,10 +106,12 @@ class MpesaController extends Controller
  
   }
 
-  public function insert(MpesaTransaction $transaction, User $user, Balance $balance)
+  public function insert($phone_number, $data)
   {
-    $t = "{\"Body\":{\"stkCallback\":{\"MerchantRequestID\":\"117463-25846902-1\",\"CheckoutRequestID\":\"ws_CO_12092022223804312700545727\",\"ResultCode\":0,\"ResultDesc\":\"The service request is processed successfully.\",\"CallbackMetadata\":{\"Item\":[{\"Name\":\"Amount\",\"Value\":1.00},{\"Name\":\"MpesaReceiptNumber\",\"Value\":\"QIC8V82TN0\"},{\"Name\":\"Balance\"},{\"Name\":\"TransactionDate\",\"Value\":20220912223930},{\"Name\":\"PhoneNumber\",\"Value\":254700545727}]}}}}";
-    dd($t);
+    return MpesaTransaction::create([
+        'phone_number' => $phone_number,
+        'data' => $data
+    ]);
     // $mpesaTransactions =$transaction->all();
 
     // foreach($mpesaTransactions as $t)
