@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('mpesa_transactions', function (Blueprint $table) {
-            $table->integer('phone_number');
+            $table->integer('phone_number')->nullable();
         });
     }
 
