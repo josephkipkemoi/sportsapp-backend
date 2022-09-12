@@ -34,7 +34,7 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        $res = json_decode($request->getContent());
+        // $response = json_decode($request->getContent());
         // echo $response;
 
         // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
@@ -42,8 +42,7 @@ class MpesaController extends Controller
         // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
   
         $transaction->create([
-            'data' => $request->getContent(),
-            'phone_number' => $res->Body->stkCallback->CallbackMetadata->Item[4]->Value
+            'data' => $request->getContent()
         ]);
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
@@ -104,13 +103,23 @@ class MpesaController extends Controller
  
   }
 
-//   public function insert(MpesaTransaction $transaction)
-//   {
-//     $mpesaTransactions = $transaction->all();
-   
-//     // foreach($mpesaTransactions as $trans)
-//     // {
-//         dd($mpesaTransactions);
-//     // }
-//    }
+  public function insert(MpesaTransaction $transaction, User $user, Balance $balance)
+  {
+    $mpesaTransactions =$transaction->all();
+
+    foreach($mpesaTransactions as $t)
+    {
+        $amount = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+        $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+        $user_id = $user->where('phone_number', $number)->first()->id;
+
+        $balance->where('user_id', $user_id)->increment('amount', $amount);
+    }  
+    
+    return response()
+                ->json([
+                    'message' => 'Balance Update'
+                ]);
+  
+   }
 }
