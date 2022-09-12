@@ -10,6 +10,7 @@ class MpesaTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'data'
+        'data',
+        'phone_number'
     ];
 }
