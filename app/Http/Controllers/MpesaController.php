@@ -42,7 +42,7 @@ class MpesaController extends Controller
         // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
   
         $transaction->create([
-            'data' => $request
+            'data' => $request->getContent()
         ]);
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
@@ -103,4 +103,8 @@ class MpesaController extends Controller
  
   }
 
+  public function insert()
+  {
+    
+  }
 }
