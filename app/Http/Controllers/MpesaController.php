@@ -24,7 +24,7 @@ class MpesaController extends Controller
 
     }
 
-    public function hook(Request $request, User $user)
+    public function hook(Request $request, User $user, MpesaTransaction $transaction)
     {
         $message = [
             "MerchantRequestID" => "29115-34620561-1",    
@@ -40,13 +40,17 @@ class MpesaController extends Controller
         $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
         $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
 
-        $user
-            ->where('phone_number', '=' , $mobile_number)
-            ->balance([
-                'amount' => $amount,
-                'receipt_no' => $receipt_no
-            ]);
+        $transaction->create([
+            'data' => $response
+        ]);
 
+        // $user
+        //     ->where('phone_number', '=' , $mobile_number)
+        //     ->balance([
+        //         'amount' => $amount,
+        //         'receipt_no' => $receipt_no
+        //     ]);
+        // dd($user);
         response()->json($message);
 
     }
