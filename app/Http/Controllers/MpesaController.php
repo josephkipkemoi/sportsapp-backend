@@ -41,9 +41,9 @@ class MpesaController extends Controller
         // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
         // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
   
-        // $transaction->create([
-        //     'data' => "$response"
-        // ]);
+        $transaction->create([
+            'data' => $request
+        ]);
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
         //     ->balance([
