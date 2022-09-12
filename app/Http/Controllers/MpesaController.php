@@ -33,26 +33,9 @@ class MpesaController extends Controller
             "ResponseDescription" => "Success. Request accepted for processing",    
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
-
-            // $response = json_decode($request->getContent());
         
-        MpesaController::insert(auth()->user()->id,$request->getContent());
+        MpesaController::insert($request->getContent());
 
-        
-        // echo $response;
-
-        // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-        // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-        // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
-  
-    
-        // $user
-        //     ->where('phone_number', '=' , $mobile_number)
-        //     ->balance([
-        //         'amount' => $amount,
-        //         'receipt_no' => $receipt_no
-        //     ]);
-        // dd($user);
         return response()->json($message);
 
     }
@@ -106,27 +89,22 @@ class MpesaController extends Controller
  
   }
 
-  public function insert($phone_number, $data)
+  public function insert( $data )
   {
-    return MpesaTransaction::create([
-        'phone_number' => $phone_number,
+    $transaction = MpesaTransaction::create([
         'data' => $data
     ]);
-    // $mpesaTransactions =$transaction->all();
 
-    // foreach($mpesaTransactions as $t)
-    // {
-    //     $amount = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-    //     $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-    //     $user_id = $user->where('phone_number', $number)->first()->id;
+    $amount = json_decode($transaction->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+    $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+    $user_id = User::where('phone_number', $number)->first()->id;
 
-    //     $balance->where('user_id', $user_id)->increment('amount', $amount);
-    // }  
-    
-    // return response()
-    //             ->json([
-    //                 'message' => 'Balance Update'
-    //             ]);
+    Balance::where('user_id', $user_id)->increment('amount', $amount);
+
+    return response()
+                ->json([
+                    'message' => 'Balance Update'
+                ]);
   
    }
 }
