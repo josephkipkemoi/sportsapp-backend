@@ -36,7 +36,7 @@ class MpesaController extends Controller
 
             // $response = json_decode($request->getContent());
         
-        MpesaController::insert($request->input('phone_number'),$request->getContent());
+        MpesaController::insert(auth()->user()->id,$request->getContent());
 
         
         // echo $response;
