@@ -35,7 +35,7 @@ class MpesaController extends Controller
         ];
 
         $response = json_decode($request->getContent());
-      
+        echo $response;
         if( $response == true) {
             // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
             // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
