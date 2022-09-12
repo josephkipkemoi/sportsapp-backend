@@ -34,16 +34,21 @@ class MpesaController extends Controller
             "CustomerMessage" => "Success. Request accepted for processing"
         ];
 
-        // $response = json_decode($request->getContent());
+        if($request->getContent()) {
+            $response = json_decode($request->getContent());
+
+            $transaction->create([
+                'data' =>$response
+            ]);
+        }
+   
         // echo $response;
 
         // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
         // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
         // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
   
-        $transaction->create([
-            'data' => $request->getContent()
-        ]);
+    
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
         //     ->balance([
@@ -105,21 +110,23 @@ class MpesaController extends Controller
 
   public function insert(MpesaTransaction $transaction, User $user, Balance $balance)
   {
-    $mpesaTransactions =$transaction->all();
+    $t = "{\"Body\":{\"stkCallback\":{\"MerchantRequestID\":\"117463-25846902-1\",\"CheckoutRequestID\":\"ws_CO_12092022223804312700545727\",\"ResultCode\":0,\"ResultDesc\":\"The service request is processed successfully.\",\"CallbackMetadata\":{\"Item\":[{\"Name\":\"Amount\",\"Value\":1.00},{\"Name\":\"MpesaReceiptNumber\",\"Value\":\"QIC8V82TN0\"},{\"Name\":\"Balance\"},{\"Name\":\"TransactionDate\",\"Value\":20220912223930},{\"Name\":\"PhoneNumber\",\"Value\":254700545727}]}}}}";
+    dd($t);
+    // $mpesaTransactions =$transaction->all();
 
-    foreach($mpesaTransactions as $t)
-    {
-        $amount = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-        $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-        $user_id = $user->where('phone_number', $number)->first()->id;
+    // foreach($mpesaTransactions as $t)
+    // {
+    //     $amount = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+    //     $number = json_decode($t->data)->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+    //     $user_id = $user->where('phone_number', $number)->first()->id;
 
-        $balance->where('user_id', $user_id)->increment('amount', $amount);
-    }  
+    //     $balance->where('user_id', $user_id)->increment('amount', $amount);
+    // }  
     
-    return response()
-                ->json([
-                    'message' => 'Balance Update'
-                ]);
+    // return response()
+    //             ->json([
+    //                 'message' => 'Balance Update'
+    //             ]);
   
    }
 }
