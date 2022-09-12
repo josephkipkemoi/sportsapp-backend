@@ -46,4 +46,11 @@ class MpesaTransactionTest extends TestCase
 
         // $response->assertOk();
     }
+
+    public function test_can_post_mpesa_hook()
+    {
+        $response = $this->post('api/mpesa/hooks');
+        dd($response);
+        $response->assertOk();
+    }
 }

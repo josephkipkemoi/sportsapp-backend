@@ -35,15 +35,15 @@ class MpesaController extends Controller
         ];
 
         $response = json_decode($request->getContent());
-
-        $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-        $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
-        $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
-
-        $transaction->create([
-            'data' => $response
-        ]);
-
+      
+        if( $response == true) {
+            // $mobile_number = $response->Body->stkCallback->CallbackMetadata->Item[4]->Value;
+            // $amount = $response->Body->stkCallback->CallbackMetadata->Item[0]->Value;
+            // $receipt_no = $response->Body->stkCallback->CallbackMetadata->Item[1]->Value;
+            $transaction->create([
+                'data' => "$response"
+            ]);
+        };
         // $user
         //     ->where('phone_number', '=' , $mobile_number)
         //     ->balance([
@@ -51,7 +51,7 @@ class MpesaController extends Controller
         //         'receipt_no' => $receipt_no
         //     ]);
         // dd($user);
-        response()->json($message);
+        return response()->json($message);
 
     }
 
