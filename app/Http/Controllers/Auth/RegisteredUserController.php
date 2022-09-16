@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
         $password = $request->validated()['password'];
 
         $user = User::create([
-            'phone_number' => $phone_number,
+            'phone_number' => $phone_number ,
             'password' => Hash::make($password),
         ]);
   
