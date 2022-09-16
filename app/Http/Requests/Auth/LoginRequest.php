@@ -49,7 +49,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'phone_number' => __('auth.failed'),
+                'phone_number' => __('The mobile and password provided do not match'),
             ]);
         }
 

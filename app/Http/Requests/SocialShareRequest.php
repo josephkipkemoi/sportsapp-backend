@@ -27,7 +27,8 @@ class SocialShareRequest extends FormRequest
             //
             'codes' => ['required'],
             'user_id' => ['numeric'],
-            'share_code' => ['required', 'unique:social_shares']
+            'share_code' => ['unique:social_shares'],
+            'betslips' => ['required']
         ];
     }
 }

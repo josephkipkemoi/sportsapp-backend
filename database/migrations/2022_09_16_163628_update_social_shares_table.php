@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('social_shares', function (Blueprint $table) {
-            $table->string('share_code')->nullable();
+            $table->json('betslips');
         });
     }
 

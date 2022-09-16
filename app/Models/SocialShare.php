@@ -12,7 +12,8 @@ class SocialShare extends Model
     protected $fillable = [
         'user_id',
         'codes',
-        'share_code'
+        'share_code',
+        'betslips'
     ];
 
     protected $casts = [

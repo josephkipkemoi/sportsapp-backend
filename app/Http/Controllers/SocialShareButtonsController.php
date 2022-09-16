@@ -15,7 +15,7 @@ class SocialShareButtonsController extends Controller
     {
 
         $shareComponent = \Share::page(
-            "https://www.bet360.co.ke/?betSession={$request->query('betSession')}",
+            "https://www.pinaclebet.com/share/{$request->query('betSession')}",
             'Share Betslip',
         )
         ->facebook()
@@ -38,26 +38,6 @@ class SocialShareButtonsController extends Controller
 
     public function show(Request $request, SocialShare $social, CustomFixture $fixture)
     {
-        $response = $social->where('share_code', $request->query('share_code'))->get('codes');
-      
-        $codes = [];
-
-        foreach($response as $fix)
-        {
-           array_push($codes, $fix->codes);
-        }
-
-        $fixtures = [];
-  
-        foreach(json_decode($codes[0]) as $code)
-        {
-            $fix = $fixture->where('fixture_id', $code)->get();
-            array_push($fixtures, $fix);
-        }   
-
-        return response()
-                    ->json([
-                        'fixtures' => $fixtures,
-                    ]);
+        return $social->where('share_code', $request->query('share_code'))->get(['codes', 'betslips'])->firstOrFail();
     }
 }
