@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class CartTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -21,8 +22,8 @@ class CartTest extends TestCase
         $response = $this->post('api/users/fixtures/cart', [
             'user_id' => $user->id,
             'cart_id' => 12,  
-            'bet_amount' => 100,
-            'possible_payout' => 1200,  
+            'bet_amount' => 50000,
+            'possible_payout' => 12000000000.97777,  
             'cart' => "[[
                 'abc' => 'abc'
             ], [

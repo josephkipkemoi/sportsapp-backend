@@ -26,7 +26,7 @@ class StoreCartRequest extends FormRequest
         return [
             //
             'user_id' => ['numeric'],
-            'cart_id' => ['numeric', 'required'],
+            'cart_id' => ['string', 'required'],
             'cart' => ['required'],
             'possible_payout' => ['required', 'numeric'],
             'bet_amount' => ['required', 'numeric'],
