@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Listeners\SendNewRegisteredUserNotification;
 use App\Models\Session;
 use App\Models\User;
+use App\Notifications\NewRegisteredUserNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -42,7 +45,7 @@ class RegisteredUserController extends Controller
         ]);
 
         Auth::login($user);
-
+         
         return response()->json([
             'uu_id' => $user,
             'session_payload' => $session_payload->payload

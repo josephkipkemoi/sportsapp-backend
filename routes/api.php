@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticateUserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BetslipCartController;
 use App\Http\Controllers\BetslipController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\JackpotController;
 use App\Http\Controllers\LiveFixturesController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
+use App\Http\Controllers\RegisteredUserNotificationController;
 use App\Http\Controllers\SoccerController;
 use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
@@ -139,5 +141,10 @@ Route::get('fixtures/live', [LiveFixturesController::class, 'index']);
 // Tooltip Routes
 Route::get('tooltips/status', [TooltipController::class, 'show']);
 Route::post('tooltips/users/{user_id}/status/update', [TooltipController::class, 'update']);
+
+// Notification Routes
+Route::get('notifications/all/users', [RegisteredUserNotificationController::class, 'all']);
+Route::get('notifications/unread/users', [RegisteredUserNotificationController::class, 'index']);
+Route::get('notifications/markRead/users', [RegisteredUserNotificationController::class, 'markRead']);
 
 require __DIR__.'/auth.php';
