@@ -27,9 +27,20 @@ class CreateUserRequest extends FormRequest
             //
             'country_residence' => 'string',
             'email' => 'email', 
-            'phone_number' => 'required',
-            'password' => 'required',
-            'password_confirmation' => 'required'
+            'phone_number' => 'required | min:12 | max:12',
+            'password' => 'required | min:4',
+            'password_confirmation' => 'required | min:4',
+            'agree_terms' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'phone_number.min' => 'Invalid mobile number format (e.g. 0700-000-000)',
+            'phone_number.max' => 'Invalid mobile number format (e.g. 0700-000-000)',
+            'password.min' => 'Password too short',
+            'agree_terms.required' => 'You need to agree to terms by checking the box before proceeding.'
         ];
     }
 }
