@@ -10,6 +10,7 @@ use App\Models\CustomFixture;
 use App\Models\Jackpot;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class AdminController extends Controller
 {
@@ -102,6 +103,11 @@ class AdminController extends Controller
                     ->json([
                         'message' => 'Data deleted succesfully'
                     ]);
+    }
+
+    public function update_history_outcome(Cart $cart, Request $request)
+    {
+        return $cart->where('id', $request->input('id'))->update(['outcome' => $request->input('outcome')]);
     }
 
 }

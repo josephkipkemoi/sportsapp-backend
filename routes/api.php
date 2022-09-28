@@ -113,7 +113,7 @@ Route::post('/users/fixtures/cart', [CartController::class, 'store']);
 Route::get('/users/fixtures/cart/{cart:id}', [CartController::class, 'show']);
 Route::get('/users/fixtures/carts', [CartController::class, 'index']);
 
-// Admin Test
+// Admin Routes
 Route::get('/admin/users', [AdminController::class, 'index']);
 Route::get('/admin/users/{user_id}/profile', [AdminController::class, 'show']);
 Route::patch('/admin/users/{user_id}/bets/{session_id}/update', [AdminController::class, 'update_bethistory']);
@@ -121,6 +121,7 @@ Route::patch('/admin/users/{user_id}/balance/update', [AdminController::class, '
 Route::patch('admin/fixture', [AdminController::class, 'custom_fixture']);
 Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
 Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
+Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update_history_outcome']);
 
 // Jackpot Routes
 Route::post('admin/jackpot', [JackpotController::class, 'store']);
