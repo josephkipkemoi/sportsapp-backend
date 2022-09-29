@@ -27,9 +27,22 @@ class PostSupportRequest extends FormRequest
             //
             'name' => ['string'],
             'email' => ['email'],
-            'phone_number' => ['required'],
+            'phone_number' => 'required | min:10 | max:10',
             'message' => ['required'],
+            'betId' => ['string'],
             // 'file' => ['required', 'mimes:pdf,png,jpg,jpeg', 'max:2048']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'phone_number.min' => 'Invalid phone number format.',
+            'phone_number.max' => 'Invalid phone number format.',
+            'name.string' => 'Fill the form below',
+            'phone_number.required' => 'Mobile number required',
+            'message.required' => 'Write message on box below',
+            'betId.string' => 'Insert BetId or your phone number'
         ];
     }
 }

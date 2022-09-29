@@ -9,6 +9,7 @@ use Tests\TestCase;
 class SupportTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -17,10 +18,9 @@ class SupportTest extends TestCase
     public function test_can_send_message_to_customer_care()
     {
         $response = $this->post('api/support', [
-            'name' => $this->faker()->name(),
-            'email' => $this->faker()->email(),
             'phone_number' => $this->faker()->numberBetween(10,100000),
             'message' => $this->faker()->text(),
+            'betId' => $this->faker()->text(),
             // 'file' => $this->faker()->image() 
         ]);
 
@@ -30,15 +30,14 @@ class SupportTest extends TestCase
     public function test_can_get_messages_received()
     {
         $this->post('api/support', [
-            'name' => $this->faker()->name(),
-            'email' => $this->faker()->email(),
             'phone_number' => $this->faker()->numberBetween(10,100000),
             'message' => $this->faker()->text(),
+            'betId' => $this->faker()->text(),
             // 'file' => $this->faker()->image() 
         ]);
         
         $response = $this->get('api/support/messages');
-
+  
         $response->assertOk();
     }
 }

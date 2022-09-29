@@ -21,7 +21,7 @@ class SupportController extends Controller
     {
         $messages = $support
                         ->orderBy('created_at', 'DESC')
-                        ->get(['name', 'email', 'phone_number', 'message']);
+                        ->get(['name', 'email', 'phone_number', 'message', 'betId']);
 
         return response()
                 ->json([

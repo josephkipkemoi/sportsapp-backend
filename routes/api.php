@@ -122,6 +122,7 @@ Route::patch('admin/fixture', [AdminController::class, 'custom_fixture']);
 Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
 Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
 Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update_history_outcome']);
+Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
 
 // Jackpot Routes
 Route::post('admin/jackpot', [JackpotController::class, 'store']);

@@ -14,6 +14,7 @@ class Support extends Model
         'email',
         'phone_number',
         'message',
-        'file'
+        'file',
+        'betId'
     ];
 }

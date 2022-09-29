@@ -110,4 +110,9 @@ class AdminController extends Controller
         return $cart->where('id', $request->input('id'))->update(['outcome' => $request->input('outcome')]);
     }
 
+    public function update_user(User $user, Request $request)
+    {
+        return $user->where('id', $request->input('user_id'))->update(['phone_number' => $request->input('phone_number')]);
+    }
+
 }

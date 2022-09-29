@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::table('carts', function (Blueprint $table) {
-            $table->string('outcome')->nullable();
+        Schema::table('supports', function (Blueprint $table) {
+            $table->string('email')->nullable()->change();
+            $table->string('betId')->nullable();
         });
     }
 
@@ -27,8 +28,9 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::table('carts', function (Blueprint $table) {
-            $table->string('outcome')->nullable();
+        Schema::table('supports', function (Blueprint $table) {
+            $table->string('email')->nullable()->change();
+            $table->string('betId')->nullable();
         });
     }
 };
