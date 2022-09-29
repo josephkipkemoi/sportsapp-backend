@@ -123,6 +123,11 @@ Route::get('admin/fixtures/ids', [AdminController::class, 'fixture_ids']);
 Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
 Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update_history_outcome']);
 Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
+Route::post('admin/users/message', [AdminController::class, 'send_message']);
+
+// User Message from Admin/Customer Care
+Route::get('users/messages', [AdminController::class, 'message_index']);
+Route::get('users/messages/show', [AdminController::class, 'message_show']);
 
 // Jackpot Routes
 Route::post('admin/jackpot', [JackpotController::class, 'store']);

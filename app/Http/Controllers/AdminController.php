@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JackpotRequest;
+use App\Http\Requests\PostAdminMessageRequest;
+use App\Models\AdminMessages;
 use App\Models\Balance;
 use App\Models\Cart;
 use App\Models\CheckoutCart;
@@ -113,6 +115,21 @@ class AdminController extends Controller
     public function update_user(User $user, Request $request)
     {
         return $user->where('id', $request->input('user_id'))->update(['phone_number' => $request->input('phone_number')]);
+    }
+
+    public function send_message(AdminMessages $message, PostAdminMessageRequest $request)
+    {
+        return $message->create($request->validated());
+    }
+
+    public function message_index(Request $request, AdminMessages $message) 
+    {
+        return $message->where('phone_number',$request->input('phone_number'))->get(['username', 'message', 'original_message', 'id']);
+    }
+
+    public function message_show(Request $request, AdminMessages $message)
+    {
+        return $message->where('id',$request->input('id'))->get(['username', 'message', 'original_message', 'id']); 
     }
 
 }
