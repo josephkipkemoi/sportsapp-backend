@@ -26,8 +26,25 @@ class CartController extends Controller
             ->paginate(8);
         }
 
+        if($request->query('bet_status') == 'Settled') {
+            return $cart->where('user_id', $request->query('user_id'))
+            ->whereNot('bet_status', "Active")
+            ->whereNot('bet_status', "Pending")
+            ->orderBy('created_at', 'DESC')
+            ->paginate(8);
+        }
+
+        if($request->query('bet_status') == 'Unsettled') {
+            return $cart->where('user_id', $request->query('user_id'))
+            ->whereNot('bet_status', "Lost")
+            ->whereNot('bet_status', "Won")
+            ->orderBy('created_at', 'DESC')
+            ->paginate(8);
+        }
+
         $carts = $cart
                     ->where('user_id', $request->query('user_id'))
+                    ->where('bet_status', $request->query('bet_status'))
                     ->where('bet_status', $request->query('bet_status'))
                     ->orderBy('created_at', 'DESC')
                     ->paginate(8);
