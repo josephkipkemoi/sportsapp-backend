@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Requests\JackpotRequest;
 use App\Http\Requests\PostAdminMessageRequest;
 use App\Models\AdminMessages;
@@ -119,7 +120,11 @@ class AdminController extends Controller
 
     public function send_message(AdminMessages $message, PostAdminMessageRequest $request)
     {
-        return $message->create($request->validated());
+        $adminMessage = $message->create($request->validated());
+        // dd($adminMessage);
+        event(new MessageSent($adminMessage));
+
+        return $adminMessage;
     }
 
     public function message_index(Request $request, AdminMessages $message) 

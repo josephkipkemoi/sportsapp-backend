@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\MessageSent;
+use App\Listeners\SendCustomerCareMessageNotification;
 use App\Listeners\SendNewRegisteredUserNotification;
 use App\Models\User;
 use App\Observers\UserObserver;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
             SendNewRegisteredUserNotification::class,
+        ],
+        MessageSent::class => [
+            SendCustomerCareMessageNotification::class,
         ],
     ];
 
