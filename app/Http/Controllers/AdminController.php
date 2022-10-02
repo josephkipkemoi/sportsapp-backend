@@ -20,10 +20,12 @@ class AdminController extends Controller
     //
     public function index(User $user, Cart $checkout_cart)
     {
+        $admin_id = $user->where('phone_number', 254700545727)->first()->id;
+
         $users = $user->orderBy('created_at', 'DESC')->get();
-        $carts = $checkout_cart->get()->sum('bet_amount');
-        $avg = $carts / $users->count();
-        $notPlaced = Balance::whereNotNull('amount')->sum('amount');
+        $carts = $checkout_cart->where('user_id', '!=', $admin_id)->get()->sum('bet_amount');
+        $avg = $carts / $users->where('phone_number', '!=',254700545727)->count();
+        $notPlaced = Balance::where('user_id', '!=', $admin_id)->whereNotNull('amount')->sum('amount');
 
         return response()
                     ->json([
