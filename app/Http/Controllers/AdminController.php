@@ -26,6 +26,7 @@ class AdminController extends Controller
         $carts = $checkout_cart->where('user_id', '!=', $admin_id)->get()->sum('bet_amount');
         $avg = $carts / $users->where('phone_number', '!=',254700545727)->count();
         $notPlaced = Balance::where('user_id', '!=', $admin_id)->whereNotNull('amount')->sum('amount');
+        $totalReceived = $carts + $notPlaced;
 
         return response()
                     ->json([
@@ -33,6 +34,7 @@ class AdminController extends Controller
                         'wagers' => $carts,
                         'avg' => $avg,
                         'notPlaced' => $notPlaced,
+                        'grandTotal' => $totalReceived,
                     ]);
     }
 
