@@ -108,10 +108,11 @@ Route::post('/mpesa/push', [MpesaController::class, 'push']);
 Route::get('/mpesa/auth', [MpesaController::class, 'authMpesa']);
 Route::post('/mpesa/insert', [MpesaController::class, 'insert']);
 
-// Updated Cart endpoints
+// Cart endpoints
 Route::post('/users/fixtures/cart', [CartController::class, 'store']);
 Route::get('/users/fixtures/cart/{cart:id}', [CartController::class, 'show']);
 Route::get('/users/fixtures/carts', [CartController::class, 'index']);
+Route::delete('users/fixtures/carts/delete', [CartController::class, 'delete']);
 
 // Admin Routes
 Route::get('/admin/users', [AdminController::class, 'index']);

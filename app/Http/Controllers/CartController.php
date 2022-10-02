@@ -65,4 +65,11 @@ class CartController extends Controller
                     ]);
     }
 
+    public function delete(Request $request, Cart $cart)
+    {
+       return $cart->where('user_id', $request->user_id)
+        ->where('cart_id', $request->cart_id)
+        ->delete();
+    }
+
 }
