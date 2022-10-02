@@ -18,13 +18,19 @@ use Illuminate\Support\Facades\Redis;
 class AdminController extends Controller
 {
     //
-    public function index(User $user)
+    public function index(User $user, Cart $checkout_cart)
     {
-        $users = $user->get();
- 
+        $users = $user->orderBy('created_at', 'DESC')->get();
+        $carts = $checkout_cart->get()->sum('bet_amount');
+        $avg = $carts / $users->count();
+        $notPlaced = Balance::whereNotNull('amount')->sum('amount');
+
         return response()
                     ->json([
-                        'users' => $users
+                        'users' => $users,
+                        'wagers' => $carts,
+                        'avg' => $avg,
+                        'notPlaced' => $notPlaced,
                     ]);
     }
 
