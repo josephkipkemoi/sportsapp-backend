@@ -23,8 +23,7 @@ class AdminController extends Controller
         $admin_id = $user->where('phone_number', 254700545727)->first()->id;
         $admin2_id = $user->where('phone_number', 254708177599)->first()->id;
 
-        $users = $user->where('phone_number', '!=',254700545727)
-                        ->where('phone_number', '!=',25454)
+        $users = $user->where('phone_number', '!=',25454)
                         ->where('phone_number', '!=',254708177599)
                         ->orderBy('created_at', 'DESC')
                         ->get();
