@@ -24,7 +24,12 @@ class AdminController extends Controller
 
         $users = $user->orderBy('created_at', 'DESC')->get();
         $carts = $checkout_cart->where('user_id', '!=', $admin_id)->get()->sum('bet_amount');
-        $avg = $carts / $users->where('phone_number', '!=',254700545727)->count();
+        $avg = $carts / $users
+        ->where('phone_number', '!=',254700545727)
+        ->where('phone_number', '!=',25454)
+        ->where('phone_number', '!=',254708177599)
+        ->count();
+        
         $notPlaced = Balance::where('user_id', '!=', $admin_id)->whereNotNull('amount')->sum('amount');
         $totalReceived = $carts + $notPlaced;
 
