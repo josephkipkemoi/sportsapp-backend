@@ -53,7 +53,10 @@ class AdminController extends Controller
     {
         $user_profile = $user->where('id', $request->user_id)->latest()->first();
   
-        $history_profile = $checkout_cart->where('user_id', $request->user_id)->get();
+        $history_profile = $checkout_cart
+                            ->where('user_id', $request->user_id)
+                            ->orderBy('created_at', 'DESC')
+                            ->get();
 
         $balance = $user->balance;
 
