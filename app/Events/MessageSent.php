@@ -34,6 +34,11 @@ class MessageSent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('my-channel1');
+    }
+
+    public function broadcastAs()
+    {
+        return 'my-event';
     }
 }
