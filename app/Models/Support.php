@@ -9,12 +9,16 @@ class Support extends Model
 {
     use HasFactory;
 
+    const CUSTOMERCAREAGENT = 'CustomerCareAgent';
+    const USERAGENT = 'UserAgent';
+
     protected $fillable = [
         'name',
         'email',
         'phone_number',
         'message',
         'file',
-        'betId'
+        'betId',
+        'user_id'
     ];
 }

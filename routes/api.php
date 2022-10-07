@@ -127,8 +127,9 @@ Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
 Route::post('admin/users/message', [AdminController::class, 'send_message']);
 
 // User Message from Admin/Customer Care
-Route::get('users/messages', [AdminController::class, 'message_index']);
+Route::get('users/messages', [AdminController::class, 'message_custom']);
 Route::get('users/messages/show', [AdminController::class, 'message_show']);
+Route::get('users/messages/index', [AdminController::class, 'message_index']);
 
 // Jackpot Routes
 Route::post('admin/jackpot', [JackpotController::class, 'store']);

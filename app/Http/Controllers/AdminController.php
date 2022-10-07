@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\CheckoutCart;
 use App\Models\CustomFixture;
 use App\Models\Jackpot;
+use App\Models\Support;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -144,21 +145,33 @@ class AdminController extends Controller
 
     public function send_message(AdminMessages $message, PostAdminMessageRequest $request)
     {
-        $adminMessage = $message->create($request->validated());
-        // dd($adminMessage);
-        event(new MessageSent($adminMessage));
+        // $adminMessage = $message->create($request->validated());
 
-        return $adminMessage;
+        $user = User::where('id', $request->validated()['user_id'])->first();
+
+        event(new MessageSent( $user ,$request->validated()['user_id'] ,$request->validated()['message'], Support::CUSTOMERCAREAGENT));
+
+        return response()
+        ->json([
+            'message' => 'Event Sent'
+        ]);
     }
 
-    public function message_index(Request $request, AdminMessages $message) 
+    public function message_custom(Request $request, AdminMessages $message) 
     {
-        return $message->where('phone_number',$request->input('phone_number'))->get(['username', 'message', 'original_message', 'id']);
+        return $message->where('phone_number',$request->input('phone_number'))
+                        ->orderBy('created_at', 'asc')
+                        ->get(['username', 'message', 'original_message', 'id']);
     }
 
-    public function message_show(Request $request, AdminMessages $message)
+    public function message_index()
     {
-        return $message->where('id',$request->input('id'))->get(['username', 'message', 'original_message', 'id']); 
+        return User::whereIn('id', Support::whereNotNull('user_id')->get('user_id'))->cursorPaginate(20);
+    }
+
+    public function message_show(Request $request, Support $message)
+    {
+        return $message->where('phone_number',$request->input('id'))->get(['message', 'user_id']); 
     }
 
 }

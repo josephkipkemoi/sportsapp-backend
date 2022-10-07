@@ -29,8 +29,8 @@ class SendCustomerCareMessageNotification
     public function handle($event)
     {
         //
-        $user = User::where('phone_number', $event->message->phone_number)->first();
-        
+        $user = User::find($event->user_id);
+ 
         Notification::send($user, new CustomerCareUserMessageNotification($event->message));
     }
 }

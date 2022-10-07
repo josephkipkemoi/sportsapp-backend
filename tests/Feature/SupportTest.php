@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,10 +18,13 @@ class SupportTest extends TestCase
      */
     public function test_can_send_message_to_customer_care()
     {
+        $user = User::factory()->create();
+
         $response = $this->post('api/support', [
-            'phone_number' => $this->faker()->numberBetween(10,100000),
+            'phone_number' => 0700545727,
             'message' => $this->faker()->text(),
             'betId' => $this->faker()->text(),
+            'user_id' => $user->id,
             // 'file' => $this->faker()->image() 
         ]);
 
@@ -29,13 +33,16 @@ class SupportTest extends TestCase
 
     public function test_can_get_messages_received()
     {
-        $this->post('api/support', [
-            'phone_number' => $this->faker()->numberBetween(10,100000),
+        $user = User::factory()->create();
+
+        $res = $this->post('api/support', [
+            'phone_number' => 0700545727,
             'message' => $this->faker()->text(),
             'betId' => $this->faker()->text(),
+            'user_id' => $user->id,
             // 'file' => $this->faker()->image() 
         ]);
-        
+
         $response = $this->get('api/support/messages');
   
         $response->assertOk();

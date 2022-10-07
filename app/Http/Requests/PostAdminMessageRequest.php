@@ -29,6 +29,7 @@ class PostAdminMessageRequest extends FormRequest
             'message' => 'required | string',
             'phone_number' => 'required | numeric',
             'original_message' => 'string',
+            'user_id' => 'numeric'
         ];
     }
 }

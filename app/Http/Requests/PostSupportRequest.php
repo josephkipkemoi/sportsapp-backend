@@ -27,9 +27,10 @@ class PostSupportRequest extends FormRequest
             //
             'name' => ['string'],
             'email' => ['email'],
-            'phone_number' => 'required | min:10 | max:10',
+            'phone_number' => 'required',
             'message' => ['required'],
             'betId' => ['string'],
+            'user_id' => ['required', 'numeric'],
             // 'file' => ['required', 'mimes:pdf,png,jpg,jpeg', 'max:2048']
         ];
     }
