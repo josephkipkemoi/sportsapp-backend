@@ -14,7 +14,7 @@ class SupportController extends Controller
     {
         $user = User::where('id', $request->validated()['user_id'])->first();
         
-        // $support->create($request->validated());
+        $support->create($request->validated());
 
         event(new MessageSent($user , $request->validated()['user_id'], $request->validated()['message'], Support::USERAGENT));
       

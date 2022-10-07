@@ -145,7 +145,7 @@ class AdminController extends Controller
 
     public function send_message(AdminMessages $message, PostAdminMessageRequest $request)
     {
-        // $adminMessage = $message->create($request->validated());
+        $message->create($request->validated());
 
         $user = User::where('id', $request->validated()['user_id'])->first();
 
