@@ -38,6 +38,10 @@ return [
             'options' => [
                 'cluster' => 'ap2',
                 'useTLS' => true,
+                'encrypted' => true,
+                'host' => 'pinaclebet.com'
+                // 'port' => 6001,
+                // 'scheme' => 'http',
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
