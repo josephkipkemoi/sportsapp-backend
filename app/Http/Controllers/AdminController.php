@@ -31,7 +31,7 @@ class AdminController extends Controller
 
         $carts = $checkout_cart->where('user_id', '!=', $admin_id)->where('user_id', '!=', $admin2_id)->get()->sum('bet_amount');
        
-        $avg = $carts / $users->where('phone_number', '!=',254700545727)
+        $usersCount = $users->where('phone_number', '!=',254700545727)
                             ->where('phone_number', '!=',25454)
                             ->where('phone_number', '!=',254708177599)
                             ->count();
@@ -40,6 +40,8 @@ class AdminController extends Controller
 
         $totalReceived = $carts + $notPlaced;
 
+        $avg = $totalReceived / $usersCount;
+        
         return response()
                     ->json([
                         'users' => $users,
