@@ -72,4 +72,9 @@ class CartController extends Controller
         ->delete();
     }
 
+    public function update(Cart $cart)
+    {
+        return $cart->whereIn('bet_status', ['Active', 'Pending'])->update(['bet_status' => 'Lost']);  
+    }
+
 }

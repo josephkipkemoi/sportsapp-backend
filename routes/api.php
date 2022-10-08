@@ -113,6 +113,7 @@ Route::post('/users/fixtures/cart', [CartController::class, 'store']);
 Route::get('/users/fixtures/cart/{cart:id}', [CartController::class, 'show']);
 Route::get('/users/fixtures/carts', [CartController::class, 'index']);
 Route::delete('users/fixtures/carts/delete', [CartController::class, 'delete']);
+Route::patch('fixtures/carts', [CartController::class, 'update']);
 
 // Admin Routes
 Route::get('/admin/users', [AdminController::class, 'index']);
