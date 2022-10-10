@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('custom_fixtures', function (Blueprint $table) {
-            $table->boolean('fixture_active')->default(true)->change();
+            $table->boolean('fixture_active')->default(true);
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         //
         Schema::table('custom_fixtures', function (Blueprint $table) {
-            $table->boolean('fixture_active')->default(true)->change();
+            $table->boolean('fixture_active')->default(true);
         });
     }
 };
