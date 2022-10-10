@@ -39,7 +39,7 @@ return [
                 'cluster' => 'ap2',
                 'useTLS' => true,
                 'encrypted' => true,
-                'host' => 'pinaclebet.com'
+                // 'host' => 'pinaclebet.com'
                 // 'port' => 6001,
                 // 'scheme' => 'http',
             ],
