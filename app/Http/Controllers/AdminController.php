@@ -63,11 +63,15 @@ class AdminController extends Controller
 
         $balance = $user->balance;
 
+        $totalDonation = $checkout_cart
+                            ->where('user_id', $request->user_id)
+                            ->sum('bet_amount');
         return response()
                     ->json([
                         'user_profile' => $user_profile,
                         'history_profile' => $history_profile,
-                        'balance' => $balance
+                        'balance' => $balance,
+                        'total_donation' => $totalDonation,
                     ]);
     }
 
@@ -174,6 +178,11 @@ class AdminController extends Controller
     public function message_show(Request $request, Support $message)
     {
         return $message->where('phone_number',$request->input('id'))->get(['message', 'user_id']); 
+    }
+
+    public function remove_user(Request $request, User $user)
+    {
+        return $user->where('id',$request->id)->delete();
     }
 
 }

@@ -91,6 +91,7 @@ Route::post('/custom_fixture/post', [CustomFixtureController::class, 'post_fixtu
 Route::post('/custom_fixture/odds', [CustomFixtureController::class, 'post_odds']);
 Route::get('fixtures/ids', [CustomFixtureController::class, 'fixture_ids']);
 Route::patch('fixtures/custom_odds/{fixture_id}', [CustomFixtureController::class, 'fixture_odds']);
+Route::patch('fixtures/status', [CustomFixtureController::class, 'status']);
 
 // Soccer Fixtures
 Route::get('/soccer/fixtures', [SoccerController::class, 'index']);
@@ -126,6 +127,7 @@ Route::delete('admin/fixtures/remove', [AdminController::class, 'remove']);
 Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update_history_outcome']);
 Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
 Route::post('admin/users/message', [AdminController::class, 'send_message']);
+Route::delete('admin/users/delete', [AdminController::class, 'remove_user']);
 
 // User Message from Admin/Customer Care
 Route::get('users/messages', [AdminController::class, 'message_custom']);

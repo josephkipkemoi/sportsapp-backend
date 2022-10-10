@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomFixture;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class CustomFixtureController extends Controller
@@ -12,7 +14,6 @@ class CustomFixtureController extends Controller
     public function fixture(CustomFixture $fixture)
     {
         $response = $fixture
-                        // ->whereNotNull('odds')
                         ->get([ 'fixture_id', 
                                 'fixture_date', 
                                 'league_name', 
@@ -22,11 +23,12 @@ class CustomFixtureController extends Controller
                                 'logo', 
                                 'flag', 
                                 'odds',
-                                'favorite_active'
+                                'favorite_active',
+                                'fixture_active'
                             ]);
   
         return response()->json([
-            'fixtures' => $response,
+            'fixtures' => $response
         ]);
     }
  
@@ -42,7 +44,7 @@ class CustomFixtureController extends Controller
         {
             $data[] = array(
                 'fixture_id' => $res->fixture->id,
-                'fixture_date' => $res->fixture->date,
+                'fixture_date' => date('Y-m-d h:i:s', strtotime($res->fixture->date)),
                 'league_name' => $res->league->name,
                 'country' => $res->league->country,
                 'logo' => $res->league->logo,
@@ -130,5 +132,15 @@ class CustomFixtureController extends Controller
         return $fixture->where('fixture_id', $fixture_id)->update([
             'odds' => $request->input('odds')
         ]);
+    }
+
+    public function status(CustomFixture $fixture)
+    {
+       $fixture_date = $fixture->get('fixture_date')->count();
+       $current_date = Carbon::now('Africa/Nairobi')->toDateTimeString();
+        // dd($current_date , $fixture_date);
+        // dd($fixture_date->gte( $current_date));
+        $fixtures =$fixture->whereDate('fixture_date', '>' ,$current_date )->get('fixture_date')->count();
+        dd($fixtures);
     }
 }

@@ -25,7 +25,11 @@ class CustomFixture extends Model
         'favorite_active'
     ];
 
-    // protected $casts = [     
-    //     'odds' => 'array'
-    // ];
+    protected $dates = [     
+        'fixture_date'
+    ];
+
+    protected $casts = [
+        'fixture_date' => 'datetime:Y-m-d H:i:s'
+    ];
 }
