@@ -21,6 +21,7 @@ use App\Http\Controllers\SoccerController;
 use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TooltipController;
+use App\Http\Controllers\UpdateFixtureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -128,6 +129,9 @@ Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update
 Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
 Route::post('admin/users/message', [AdminController::class, 'send_message']);
 Route::delete('admin/users/delete', [AdminController::class, 'remove_user']);
+
+// Update Fixtures
+Route::post('admin/update/fixtures/odds', [UpdateFixtureController::class, 'update_odds']);
 
 // User Message from Admin/Customer Care
 Route::get('users/messages', [AdminController::class, 'message_custom']);

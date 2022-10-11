@@ -131,12 +131,7 @@ class AdminController extends Controller
 
     public function remove(CustomFixture $fixture)
     {
-        $fixture->whereNotNull('fixture_id')->delete();
-
-        return response()
-                    ->json([
-                        'message' => 'Data deleted succesfully'
-                    ]);
+       return $fixture->whereNotNull('fixture_id')->delete();
     }
 
     public function update_history_outcome(Cart $cart, Request $request)
