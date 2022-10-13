@@ -27,7 +27,7 @@ class AdminController extends Controller
         $users = $user->where('phone_number', '!=',25454)
                         ->where('phone_number', '!=',254708177599)
                         ->orderBy('created_at', 'DESC')
-                        ->get();
+                        ->paginate(10);
 
         $carts = $checkout_cart->where('user_id', '!=', $admin_id)->where('user_id', '!=', $admin2_id)->get()->sum('bet_amount');
        
@@ -44,11 +44,12 @@ class AdminController extends Controller
         
         return response()
                     ->json([
-                        'users' => $users,
+                        'data' => $users,
                         'wagers' => $carts,
                         'avg' => $avg,
                         'notPlaced' => $notPlaced,
                         'grandTotal' => $totalReceived,
+                        'count' =>  $usersCount
                     ]);
     }
 
