@@ -174,8 +174,10 @@ class AdminController extends Controller
         return $message->where('phone_number',$request->input('id'))->get(['message', 'user_id']); 
     }
 
-    public function remove_user(Request $request, User $user)
+    public function remove_user(Request $request, User $user, Balance $balance, Cart $cart)
     {
+        $cart->where('user_id', $request->id )->delete();
+        $balance->where('user_id', $request->id)->delete();
         return $user->where('id',$request->id)->delete();
     }
 
