@@ -9,6 +9,11 @@ class Balance extends Model
 {
     use HasFactory;
 
+    const BITCOINCURRENCY = 'BTC';
+    const KENYASHILLINGCURRENCY = 'KES';
+    const UGANDASHILLINGCURRENCY = 'UGS';
+    const DOLLARCURRENCY = 'USD';
+
     protected $fillable = [
         'amount',
         'user_id',

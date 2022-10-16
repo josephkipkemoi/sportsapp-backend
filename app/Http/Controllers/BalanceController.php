@@ -28,7 +28,9 @@ class BalanceController extends Controller
 
         return response()
                     ->json([
-                        'amount' => $balance_amount
+                        'amount' => $balance_amount,
+                        'bonus' => 0,
+                        'currency' => Balance::KENYASHILLINGCURRENCY
                     ]);
     }
 

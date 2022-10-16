@@ -13,23 +13,7 @@ class CustomFixtureController extends Controller
     //
     public function fixture(CustomFixture $fixture)
     {
-        $response = $fixture
-                        ->get([ 'fixture_id', 
-                                'fixture_date', 
-                                'league_name', 
-                                'country', 
-                                'home', 
-                                'away', 
-                                'logo', 
-                                'flag', 
-                                'odds',
-                                'favorite_active',
-                                'fixture_active'
-                            ]);
-  
-        return response()->json([
-            'fixtures' => $response
-        ]);
+        return $fixture->paginate(20);
     }
  
     public function post_fixture(CustomFixture $fixture)
