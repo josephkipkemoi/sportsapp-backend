@@ -22,6 +22,7 @@ use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TooltipController;
 use App\Http\Controllers\UpdateFixtureController;
+use App\Http\Controllers\UserCountryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,9 @@ Route::post('/users/{user:id}/balance/decrement', [BalanceController::class, 'de
 Route::get('/users/balance', [BalanceController::class, 'index'])->middleware('token');
 Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
 Route::get('/users/{user:id}/balance/history', [BalanceController::class, 'show'])->middleware('token');
+
+// User Country
+Route::get('/user/country', [UserCountryController::class, 'index']);
 
 // Game Fixtures
 Route::post('/fixtures', [FixtureController::class, 'store']);

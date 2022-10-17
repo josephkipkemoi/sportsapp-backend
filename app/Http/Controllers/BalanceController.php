@@ -26,11 +26,24 @@ class BalanceController extends Controller
                         ->where('user_id', $request->input('user_id'))
                         ->latest()->first();
 
+        $currency = Balance::KENYASHILLINGCURRENCY;
+
+        $country = UserCountryController::index();
+
+        if($country == 'Kenya') {
+            $currency = Balance::KENYASHILLINGCURRENCY;
+        } else if($country == 'Uganda') {
+            $currency = Balance::UGANDASHILLINGCURRENCY;
+        } else {
+            $currency = Balance::DOLLARCURRENCY;
+        }
+
         return response()
                     ->json([
                         'amount' => $user_balance->amount,
                         'bonus' => $user_balance->bonus,
-                        'currency' => Balance::KENYASHILLINGCURRENCY
+                        'currency' => $currency,
+                        'country' => $country
                     ]);
     }
 
