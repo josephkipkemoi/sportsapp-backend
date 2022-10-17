@@ -35,7 +35,7 @@ class BalanceController extends Controller
         } else if($country == 'Uganda') {
             $currency = Balance::UGANDASHILLINGCURRENCY;
         } else {
-            $currency = Balance::DOLLARCURRENCY;
+            $currency = Balance::KENYASHILLINGCURRENCY;
         }
 
         return response()
