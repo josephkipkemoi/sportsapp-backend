@@ -22,14 +22,14 @@ class BalanceController extends Controller
 
     public function index(Balance $balance, Request $request)
     {
-        $balance_amount = $balance
+        $user_balance = $balance
                         ->where('user_id', $request->input('user_id'))
-                        ->latest()->first()->amount;
+                        ->latest()->first();
 
         return response()
                     ->json([
-                        'amount' => $balance_amount,
-                        'bonus' => 0,
+                        'amount' => $user_balance->amount,
+                        'bonus' => $user_balance->bonus,
                         'currency' => Balance::KENYASHILLINGCURRENCY
                     ]);
     }

@@ -181,4 +181,11 @@ class AdminController extends Controller
         return $user->where('id',$request->id)->delete();
     }
 
+    public function update_bonus(Balance $balance, Request $request)
+    {
+       return $balance
+        ->where('user_id', $request->user_id)
+        ->increment('bonus' , $request->input('bonus'));
+    }
+
 }

@@ -129,6 +129,7 @@ Route::patch('admin/history/updateCartHistory', [AdminController::class, 'update
 Route::patch('admin/users/updateUser', [AdminController::class, 'update_user']);
 Route::post('admin/users/message', [AdminController::class, 'send_message']);
 Route::delete('admin/users/delete', [AdminController::class, 'remove_user']);
+Route::patch('admin/users/{user_id}/bonus', [AdminController::class, 'update_bonus']);
 
 // Update Fixtures
 Route::post('admin/update/fixtures/odds', [UpdateFixtureController::class, 'update_odds']);
