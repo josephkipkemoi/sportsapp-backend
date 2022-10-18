@@ -23,15 +23,22 @@ class AdminController extends Controller
     {
         $admin_id = $user->where('phone_number', 254700545727)->first()->id;
         $admin2_id = $user->where('phone_number', 254708177599)->first()->id;
+        $admin3_id = $user->where('phone_number', 254708177599)->first()->id;
 
         $users = $user->orderBy('created_at', 'DESC')
                         ->paginate(10);
 
-        $carts = $checkout_cart->where('user_id', '!=', $admin_id)->where('user_id', '!=', $admin2_id)->get()->sum('bet_amount');
+        $carts = $checkout_cart
+                        ->where('user_id', '!=', $admin_id)
+                        ->where('user_id', '!=', $admin2_id)
+                        ->where('user_id', '!=', $admin3_id)
+                        ->get()
+                        ->sum('bet_amount');
        
         $usersCount = $user
                         ->where('phone_number', '!=',254708177599)            
-                        ->where('phone_number', '!=',254700545727)            
+                        ->where('phone_number', '!=',254700545727)      
+                        ->where('phone_number', '!=',254763500481)            
                         ->count();
         
         $notPlaced = Balance::where('user_id', '!=', $admin_id)->whereNotNull('amount')->sum('amount');
