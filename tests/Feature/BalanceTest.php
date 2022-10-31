@@ -110,4 +110,19 @@ class BalanceTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_post_bet_with_bonus()
+    {
+        $user = User::factory()->create();
+
+        $this->patch("api/admin/users/{$user->id}/bonus", [
+            'bonus' => 50
+        ]);
+
+        $response = $this->post("api/users/{$user->id}/bonus", [
+            'bonus' => 100
+        ]);
+
+        $response->assertOk();
+    }
 }

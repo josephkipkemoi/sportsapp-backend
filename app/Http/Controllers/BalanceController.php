@@ -76,4 +76,24 @@ class BalanceController extends Controller
                         'message' => 'Success'
                     ]);
     }   
+
+    public function bonus($user_id, Balance $balance, Request $request)
+    {
+       $user_balance = User::find($user_id)->balance->bonus;
+
+       if($user_balance < $request->input('bonus')) 
+       {
+            return response()->json(['message' => 'Insufficient balance']);
+       }
+
+        $response = $balance
+                    ->where('user_id', $user_id)
+                    ->decrement('bonus', $request->input('bonus'));
+
+        return response()
+                    ->json([
+                        'message' => 'Bonus Bet placed successfully',
+                        'data' => $response
+                    ]);
+    }
 }

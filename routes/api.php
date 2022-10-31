@@ -46,6 +46,7 @@ Route::post('/users/{user:id}/balance/decrement', [BalanceController::class, 'de
 Route::get('/users/balance', [BalanceController::class, 'index'])->middleware('token');
 Route::get('/users/{user:id}/balance/deposits', [BalanceController::class, 'deposits'])->middleware('token');
 Route::get('/users/{user:id}/balance/history', [BalanceController::class, 'show'])->middleware('token');
+Route::post('/users/{user:id}/bonus', [BalanceController::class, 'bonus']);
 
 // User Country
 Route::get('/user/country', [UserCountryController::class, 'index']);
