@@ -77,6 +77,16 @@ class BalanceController extends Controller
                     ]);
     }   
 
+    public function decrement_user(Request $request)
+    {
+        Balance::where('user_id', $request->user_id)->decrement('amount', $request->amount);
+
+        return response()
+                    ->json([
+                        'message' => 'Success'
+                    ]);
+    }  
+
     public function bonus($user_id, Balance $balance, Request $request)
     {
        $user_balance = User::find($user_id)->balance->bonus;

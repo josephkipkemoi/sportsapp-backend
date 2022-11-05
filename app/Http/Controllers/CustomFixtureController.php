@@ -126,6 +126,6 @@ class CustomFixtureController extends Controller
         // dd($current_date , $fixture_date);
         // dd($fixture_date->gte( $current_date));
         $fixtures =$fixture->whereDate('fixture_date', '>' ,$current_date )->get('fixture_date')->count();
-        dd($fixtures);
+       
     }
 }
