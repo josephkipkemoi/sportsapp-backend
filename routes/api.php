@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomFixtureController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\JackpotController;
+use App\Http\Controllers\JackpotMarketController;
 use App\Http\Controllers\LiveFixturesController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
@@ -156,6 +157,11 @@ Route::patch('admin/jackpot/{id}/patch', [JackpotController::class, 'patch']);
 Route::patch('admin/jackpot/{jp_market}/status', [JackpotController::class, 'status']);
 Route::post('admin/jackpot/prize', [JackpotController::class, 'jackpot_prize']);
 Route::get('jackpot/prize', [JackpotController::class, 'jackpot_index']);
+
+// Admin Jackpot Market ROutes
+Route::post('jackpots/markets', [JackpotMarketController::class, 'store']);
+Route::get('jackpots/markets/view', [JackpotMarketController::class, 'index']);
+Route::patch('jackpots/markets/{market_id}/patch', [JackpotMarketController::class, 'update']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
