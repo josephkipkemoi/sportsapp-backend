@@ -15,6 +15,18 @@ return new class extends Migration
     {
         Schema::create('jackpot_games', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('jackpot_market_id')
+                ->references('market_id')
+                ->on('jackpot_market_models')
+                ->nullable();
+            $table->string('home_team');
+            $table->string('away_team');
+            $table->unsignedFloat('home_odds');
+            $table->unsignedFloat('draw_odds');
+            $table->unsignedFloat('away_odds');
+            $table->timestamp('kick_off_time');
+            $table->boolean('game_started')->default(false);
+            $table->boolean('game_ended')->default(false);
             $table->timestamps();
         });
     }

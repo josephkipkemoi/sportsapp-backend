@@ -166,6 +166,8 @@ Route::patch('jackpots/markets/{market_id}/patch', [JackpotMarketController::cla
 
 // JackpotMarket Games
 Route::post('jackpots/markets/{market_id}/games', [JackpotGamesController::class, 'store']);
+Route::get('jackpots/{market_id}/games', [JackpotGamesController::class, 'index']);
+
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
 Route::get('fixtures/live', [LiveFixturesController::class, 'index']);

@@ -12,6 +12,12 @@ class JackpotMarketModel extends Model
     protected $fillable = [
         "market",
         "market_prize",
-        "market_id"
+        "market_id",
+        "market_active"
     ];
+
+    public function jackpotgames()
+    {
+        return $this->hasMany(JackpotGame::class, 'jackpot_market_id', 'market_id');
+    }
 }
