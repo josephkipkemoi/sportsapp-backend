@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJackpotGamesRequest;
 use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
+use Carbon\Carbon;
 
 class JackpotGamesController extends Controller
 {
@@ -12,10 +13,7 @@ class JackpotGamesController extends Controller
     public function index($market_id)
     {
         $jp_market = JackpotMarketModel::where('market_id', $market_id)->get([
-            'market',
-            'market_prize',
-            'market_id',
-            'market_active'
+            'market', 'market_prize', 'market_id', 'market_active'
         ]);
 
         $jp_games = JackpotGame::where('jackpot_market_id', $market_id)->get([
@@ -34,4 +32,24 @@ class JackpotGamesController extends Controller
     {
         return $jackpotmarket->jackpotgames()->create($request->validated());
     }
+
+    public function patch(JackpotMarketModel $jackpotmarket)
+    {
+        $market = JackpotGame::where('kick_off_time', '<=' ,Carbon::now('Africa/Nairobi'))->first();
+        if ($market == null) {
+            return $jackpotmarket->where('market_id', $market->market_id)->update([
+                'market_active' => false,
+            ]);
+        }
+
+        if(
+            $market->kick_off_time->format('H:i:s') <= Carbon::now('Africa/Nairobi')->format('H:i:s') == true
+        ) {
+            return $jackpotmarket->where('market_id', $market->market_id)->update([
+                'market_active' => false,
+            ]);
+        };
+
+    }
+
 }

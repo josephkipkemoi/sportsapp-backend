@@ -20,8 +20,12 @@ class JackpotGame extends Model
         'game_ended'
     ];
 
+    protected $dates = [
+        'kick_off_time'
+    ];
+
     public function jackpotmarket() 
     {
-        return $this->belongsTo(JackpotGame::class, 'market_id');
+        return $this->belongsTo(JackpotMarketModel::class, 'market_id', 'jackpot_market_id');
     }
 }
