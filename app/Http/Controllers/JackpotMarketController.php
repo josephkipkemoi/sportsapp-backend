@@ -24,4 +24,6 @@ class JackpotMarketController extends Controller
         $jp =  JackpotMarketModel::where("market_id", $market_id)->update($request->validated());
         return response()->json($jp);
     }    
+
+ 
 }
