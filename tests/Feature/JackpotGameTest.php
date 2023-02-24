@@ -95,4 +95,57 @@ class JackpotGameTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_can_update_jackpot_game() 
+    {
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201
+        ]);
+
+        $game = $market->jackpotgames()->create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => '2023-02-19 18:58'
+        ]);
+
+        $response = $this->patch("api/jackpots/$market->market_id/games/$game->id", [
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => '2023-02-19 18:58'
+        ]);
+
+        $response->assertOk();
+    }
+
+    public function test_can_remove_jackpot_game() 
+    {
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201
+        ]);
+
+        $game = $market->jackpotgames()->create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => '2023-02-19 18:58'
+        ]);
+
+        $response = $this->delete("api/jackpots/$market->id/games/$game->id/delete");
+
+        $response->assertOk();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJackpotGamesRequest;
+use App\Http\Requests\UpdateJackpotGameRequest;
 use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
 use Carbon\Carbon;
@@ -50,6 +51,11 @@ class JackpotGamesController extends Controller
             ]);
         };
 
+    }
+
+    public function update(UpdateJackpotGameRequest $request, $market_id, $game_id, JackpotGame $jp_game)
+    {
+      return $jp_game->where('jackpot_market_id',$market_id)->where('id', $game_id)->update($request->validated());
     }
 
 }
