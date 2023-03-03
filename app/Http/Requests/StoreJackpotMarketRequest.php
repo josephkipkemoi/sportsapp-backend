@@ -28,6 +28,7 @@ class StoreJackpotMarketRequest extends FormRequest
             'market' => ['required', 'string'],
             'market_id' => ['required', 'numeric'],
             'market_prize' => ['required', 'numeric'],
+            'games_count' => ['required', 'numeric']
         ];
     }
 }

@@ -10,6 +10,7 @@ class JackpotGame extends Model
     use HasFactory;
 
     protected $fillable = [
+        'jackpot_market_id',
         'home_team',
         'away_team',
         'home_odds',

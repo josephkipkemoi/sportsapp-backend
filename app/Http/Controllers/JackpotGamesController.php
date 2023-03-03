@@ -29,9 +29,9 @@ class JackpotGamesController extends Controller
                 ]);
     }
 
-    public function store(JackpotMarketModel $jackpotmarket, StoreJackpotGamesRequest $request) 
+    public function store(JackpotGame $jackpotmarket, StoreJackpotGamesRequest $request) 
     {
-        return $jackpotmarket->jackpotgames()->create($request->validated());
+        return $jackpotmarket->create($request->validated());
     }
 
     public function patch(JackpotMarketModel $jackpotmarket)

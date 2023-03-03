@@ -24,7 +24,8 @@ class StoreJackpotGamesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            //.
+            'jackpot_market_id' => ['required', 'numeric'],
             'home_team' => ['required', 'string'],
             'away_team' => ['required', 'string'],
             'home_odds' => ['required', 'numeric'],

@@ -23,7 +23,8 @@ class JackpotMarketTest extends TestCase
         $response = $this->post('api/jackpots/markets', [
             "market" => "Mega Jackpot",
             "market_prize" => $this->faker()->numberBetween(100000,5000000),
-            "market_id" => $this->faker()->numberBetween(100,400)
+            "market_id" => $this->faker()->numberBetween(100,400),
+            "games_count" => $this->faker()->numberBetween(5,17)
         ]);
 
         $response->assertStatus(201);
@@ -46,7 +47,8 @@ class JackpotMarketTest extends TestCase
         $mega_jp_market = JackpotMarketModel::create([
             "market" => "Mega Jackpot",
             "market_prize" => 1000000,
-            "market_id" => 201        
+            "market_id" => 201,
+            "games_count" => $this->faker()->numberBetween(5,17) 
         ]);
 
         $response = $this->patch("api/jackpots/markets/$mega_jp_market->market_id/patch", [
