@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\JackpotMarket;
 use App\Models\JackpotMarketModel;
 use App\Models\JackpotResult;
 use App\Models\User;
@@ -224,5 +223,42 @@ class JackpotGameTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonFragment([1]);
+    }
+
+    public function test_user_can_view_stored_jackpot_result()
+    {
+        $user = User::factory()->create();
+
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 5
+        ]);
+
+        $game = $market->jackpotgames()->create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => '2023-02-19 18:58'
+        ]);
+
+        $result = JackpotResult::create([
+            'user_id' => $user->id,
+            'jackpot_market_id' => $game->jackpot_market_id,
+            'picked' => 'x',
+            'game_id' => $game->id
+        ]);
+
+        $response = $this->get("api/jackpots/{$result->jackpot_market_id}/users/$result->user_id/view", [
+            'user_id' => $result->user_id,
+            'jackpot_market_id' =>  $result->jackpot_market_id
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonCount(1);
     }
 }

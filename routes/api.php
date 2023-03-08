@@ -15,6 +15,7 @@ use App\Http\Controllers\FixtureController;
 use App\Http\Controllers\JackpotController;
 use App\Http\Controllers\JackpotGamesController;
 use App\Http\Controllers\JackpotMarketController;
+use App\Http\Controllers\JackpotResultController;
 use App\Http\Controllers\LiveFixturesController;
 use App\Http\Controllers\MpesaController;
 use App\Http\Controllers\OddController;
@@ -171,9 +172,10 @@ Route::patch('jackpots/{market_id}/patch', [JackpotGamesController::class, 'patc
 Route::patch('jackpots/{market_id}/games/{game_id}', [JackpotGamesController::class, 'update']);
 Route::delete('jackpots/{market_id}/games/{game_id}/delete', [JackpotGamesController::class, 'delete']);
 
-// JackpotGame Result
-Route::post('jackpots/users/{user_id}/games/{game_id}', [JackpotGamesController::class, 'storeResult']);
-Route::patch('jackpots/{jackpot_market_id}/games/{game_id}/users/{user_id}/patch', [JackpotGamesController::class, 'patchResult']);
+// JackpotGame Results
+Route::post('jackpots/users/{user_id}/games/{game_id}', [JackpotResultController::class, 'store']);
+Route::patch('jackpots/{jackpot_market_id}/games/{game_id}/users/{user_id}/patch', [JackpotResultController::class, 'patch']);
+Route::get('jackpots/{jackpot_market_id}/users/{user_id}/view', [JackpotResultController::class, 'index']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);

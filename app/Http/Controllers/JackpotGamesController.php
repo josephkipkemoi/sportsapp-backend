@@ -65,17 +65,4 @@ class JackpotGamesController extends Controller
     {
         return $jp_game->where("jackpot_market_id", $market_id)->where("id", $game_id)->delete();
     }
-
-    public function storeResult(StoreJackpotResultRequest $request, JackpotResult $result)
-    {
-        return $result->create($request->validated());
-    }
-
-    public function patchResult(PatchJackpotResultRequest $request, JackpotResult $result)
-    {
-        return $result->where("user_id", $request->user_id)
-                    ->where("jackpot_market_id", $request->jackpot_market_id)
-                    ->where("game_id", $request->game_id)
-                    ->update($request->validated());  
-    }
 }

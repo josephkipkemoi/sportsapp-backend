@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\JackpotMarket;
 use App\Models\JackpotMarketModel;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
