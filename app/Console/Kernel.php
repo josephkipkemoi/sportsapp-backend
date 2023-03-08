@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +16,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('updatehistory')->everyMinute();
+        // $schedule->call(function() {
+        //     DB::table('checkout_carts')
+        //     ->where('betslip_status', 'Active')
+        //     ->update(['Pending']);
+        // })->everyMinute();
     }
 
     /**
