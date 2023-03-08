@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\JackpotMarket;
 use App\Models\JackpotMarketModel;
+use App\Models\JackpotResult;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -184,5 +185,44 @@ class JackpotGameTest extends TestCase
         ]);
 
         $response->assertCreated();
+    }
+
+    public function test_can_update_jackpot_stored_result()
+    {
+        $user = User::factory()->create();
+
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 5
+        ]);
+
+        $game = $market->jackpotgames()->create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => '2023-02-19 18:58'
+        ]);
+
+        $result = JackpotResult::create([
+            'user_id' => $user->id,
+            'jackpot_market_id' => $game->jackpot_market_id,
+            'picked' => 'x',
+            'game_id' => $game->id
+        ]);
+
+        $response = $this->patch("api/jackpots/$result->jackpot_market_id/games/$result->game_id/users/{$user->id}/patch", [
+            'outcome' => "1",
+            "jackpot_market_id" => $result->jackpot_market_id,
+            'game_id' => $result->game_id,
+            'user_id' => $user->id
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonFragment([1]);
     }
 }

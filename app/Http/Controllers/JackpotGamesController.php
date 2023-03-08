@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatchJackpotResultRequest;
 use App\Http\Requests\StoreJackpotGamesRequest;
 use App\Http\Requests\StoreJackpotResultRequest;
 use App\Http\Requests\UpdateJackpotGameRequest;
@@ -68,5 +69,13 @@ class JackpotGamesController extends Controller
     public function storeResult(StoreJackpotResultRequest $request, JackpotResult $result)
     {
         return $result->create($request->validated());
+    }
+
+    public function patchResult(PatchJackpotResultRequest $request, JackpotResult $result)
+    {
+        return $result->where("user_id", $request->user_id)
+                    ->where("jackpot_market_id", $request->jackpot_market_id)
+                    ->where("game_id", $request->game_id)
+                    ->update($request->validated());  
     }
 }

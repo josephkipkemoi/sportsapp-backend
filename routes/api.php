@@ -173,6 +173,7 @@ Route::delete('jackpots/{market_id}/games/{game_id}/delete', [JackpotGamesContro
 
 // JackpotGame Result
 Route::post('jackpots/users/{user_id}/games/{game_id}', [JackpotGamesController::class, 'storeResult']);
+Route::patch('jackpots/{jackpot_market_id}/games/{game_id}/users/{user_id}/patch', [JackpotGamesController::class, 'patchResult']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
