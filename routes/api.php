@@ -171,6 +171,9 @@ Route::patch('jackpots/{market_id}/patch', [JackpotGamesController::class, 'patc
 Route::patch('jackpots/{market_id}/games/{game_id}', [JackpotGamesController::class, 'update']);
 Route::delete('jackpots/{market_id}/games/{game_id}/delete', [JackpotGamesController::class, 'delete']);
 
+// JackpotGame Result
+Route::post('jackpots/users/{user_id}/games/{game_id}', [JackpotGamesController::class, 'storeResult']);
+
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
 Route::get('fixtures/live', [LiveFixturesController::class, 'index']);

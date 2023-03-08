@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJackpotGamesRequest;
+use App\Http\Requests\StoreJackpotResultRequest;
 use App\Http\Requests\UpdateJackpotGameRequest;
 use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
+use App\Models\JackpotResult;
 use Carbon\Carbon;
 
 class JackpotGamesController extends Controller
@@ -63,4 +65,8 @@ class JackpotGamesController extends Controller
         return $jp_game->where("jackpot_market_id", $market_id)->where("id", $game_id)->delete();
     }
 
+    public function storeResult(StoreJackpotResultRequest $request, JackpotResult $result)
+    {
+        return $result->create($request->validated());
+    }
 }
