@@ -81,7 +81,7 @@ class JackpotGameTest extends TestCase
             'market_prize' => 1000,
             'market_id' => 201,
             'games_count' => 5
-        ]);
+        ]); 
 
        $market->jackpotgames()->create([
             'jackpot_market_id' => $market->market_id,
