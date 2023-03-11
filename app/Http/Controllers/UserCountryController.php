@@ -10,8 +10,9 @@ class UserCountryController extends Controller
     //
     static function index()
     {
-        $response = Http::acceptJson()->get('http://ip-api.com/json');
+        // $response = Http::acceptJson()->get('http://ip-api.com/json');
 
-        return $response->object()->country;
+        // return $response->object()->country;
+        return "Kenya";
     }
 }

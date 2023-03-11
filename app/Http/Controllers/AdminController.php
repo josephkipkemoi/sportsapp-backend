@@ -76,7 +76,7 @@ class AdminController extends Controller
 
     public function update_bethistory(Cart $checkout_cart, Request $request)
     {
-         $checkout_cart
+        $checkout_cart
                     ->where('user_id', $request->user_id)
                     ->where('cart_id', $request->session_id)
                     ->update([

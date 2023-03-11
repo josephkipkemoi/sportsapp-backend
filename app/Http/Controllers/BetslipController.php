@@ -62,4 +62,9 @@ class BetslipController extends Controller
             'data' => $betslip
         ]);
     }
+
+    public function confirm_betslip_result()
+    {
+        
+    }
 }

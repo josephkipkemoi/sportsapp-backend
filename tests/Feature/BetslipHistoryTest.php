@@ -96,7 +96,7 @@ class BetslipHistoryTest extends TestCase
 
         $session_id = json_decode($betslip->getContent())->data->session_id;
 
-        $checkout_slip = $this->post('api/checkout', [
+        $this->post('api/checkout', [
             'session_id' => $session_id,
             'user_id' =>  $user->id,
             'stake_amount' => $this->faker()->numberBetween(10000,10000),
@@ -104,11 +104,7 @@ class BetslipHistoryTest extends TestCase
             'final_payout' => $this->faker()->numberBetween(10000,10000)
         ]);
 
-        $user_id = json_decode($checkout_slip->getContent())->data->user_id;
-
-        $this->get("api/users/{$session_id}/betslips?user_id={$user_id}");
-
-        $response =  $this->patch("api/users/betslips/update?user_id={$user_id}&session_id={$session_id}", [
+        $response =  $this->patch("api/users/betslips/update?user_id={$user->id}&session_id={$session_id}", [
             'betslip_status' => 'Lost'
         ]);
 

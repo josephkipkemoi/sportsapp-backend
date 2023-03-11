@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,6 +11,7 @@ use Tests\TestCase;
 class AdminTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -39,16 +41,18 @@ class AdminTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $checkout = $this->post('api/checkout', [
+        $checkout = Cart::create([
             'session_id' => $this->faker()->numberBetween(1000,10000),
             'user_id' => $user->id,
-            'stake_amount' => $this->faker()->numberBetween(1000,10000),
+            'cart_id' => $this->faker()->numberBetween(1000,10000),
+            'bet_amount' => $this->faker()->numberBetween(1000,10000),
+            'cart' => [[]],
             'total_odds' => $this->faker()->numberBetween(1000,10000),
-            'final_payout' => $this->faker()->numberBetween(1000,10000)
+            'possible_payout' => $this->faker()->numberBetween(1000,10000)
         ]);
-
-        $response = $this->patch("api/admin/users/{$user->id}/bets/{$checkout->getData()->data->session_id}/update", [
-            'bet_status' => 'Lost'
+     
+        $response = $this->patch("api/admin/users/{$user->id}/bets/{$checkout->session_id}/update", [
+            'bet_status' => 'Won'
         ]);
 
         $response->assertOk();
