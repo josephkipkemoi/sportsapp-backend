@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCartRequest;
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -11,11 +12,33 @@ class CartController extends Controller
     //
     public function store(StoreCartRequest $request, Cart $cart)
     {
-        $cart->create($request->validated());
+        $user_id = $request->validated()['user_id'];
+        $stake_amount = $request->validated()['bet_amount'];
+        $user = User::find($user_id);
+        $user_bonus = $user->balance->bonus;
+        $user_balance = $user->balance->amount;
+
+        if($user_balance >= $stake_amount) {
+            $checkout_data = $cart->create($request->validated());
+            $user->balance()->first()->decrement('amount', $stake_amount);
+
+            return response()->json([
+                'data' => $checkout_data
+            ]);
+        }
+
+        if($user_balance < $stake_amount && $user_bonus >= $stake_amount) {
+            $checkout_data = $cart->create($request->validated());
+            $user->balance()->first()->decrement('bonus', $stake_amount);
+
+            return response()->json([
+                'data' => $checkout_data
+            ]);
+        }
 
         return response()->json([
-            'message' => 'Betslip posted'
-        ]);
+            "message" => "Insufficient balance, please top up to continue."
+        ], 400);
     }
 
     public function index(Cart $cart, Request $request)
