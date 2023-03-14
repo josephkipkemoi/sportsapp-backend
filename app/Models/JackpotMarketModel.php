@@ -14,7 +14,8 @@ class JackpotMarketModel extends Model
         "market_prize",
         "market_id",
         "market_active",
-        "games_count"
+        "games_count",
+        "min_stake"
     ];
 
     public function jackpotgames()

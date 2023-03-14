@@ -25,6 +25,7 @@ class StoreJackpotResultRequest extends FormRequest
     {
         return [
             //
+            'user_id' => ['required', 'numeric'],
             'jackpot_market_id' => ['required', 'numeric'],
             'game_id' => ['required', 'numeric'],
             'picked' => ['required', 'string']

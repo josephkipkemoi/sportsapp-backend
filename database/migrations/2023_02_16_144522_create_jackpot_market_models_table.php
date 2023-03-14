@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger("market_id")->unique();
             $table->boolean("market_active")->default(true);
             $table->unsignedInteger("games_count");
+            $table->unsignedInteger("min_stake");
             $table->timestamps();
         });
     }
