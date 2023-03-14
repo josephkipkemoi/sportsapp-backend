@@ -34,6 +34,17 @@ class JackpotGamesController extends Controller
 
     public function store(JackpotGame $jackpotmarket, StoreJackpotGamesRequest $request) 
     {
+        $jp = JackpotMarketModel::where('market_id', $request->jackpot_market_id);
+        $jp_market_limit = $jp->first()->games_count;
+        $jp_market_count = $jackpotmarket->where('jackpot_market_id', $request->jackpot_market_id)->count();
+
+        if($jp_market_count > $jp_market_limit) {
+            return response()
+                        ->json([
+                            'message' => "{$jp->first()->market} Limit reached!"
+                        ], 400);
+        }
+
         return $jackpotmarket->create($request->validated());
     }
 

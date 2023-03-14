@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
 use App\Models\JackpotResult;
 use App\Models\User;
@@ -24,7 +25,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
         $response = $this->post("api/jackpots/markets/{$market->market_id}/games", [
@@ -40,13 +42,92 @@ class JackpotGameTest extends TestCase
         $response->assertStatus(201);
     }
 
+    public function test_admin_cannot_post_game_once_limit_is_reached()
+    {
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 5,
+            'min_stake' => 100
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        
+
+        $response = $this->post("api/jackpots/markets/{$market->market_id}/games", [
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+
+        $response->assertStatus(400);
+    }
+
     public function test_can_get_jackpot_games()
     {
         $market = JackpotMarketModel::create([
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
        $market->jackpotgames()->create([
@@ -80,7 +161,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]); 
 
        $market->jackpotgames()->create([
@@ -106,7 +188,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
         $game = $market->jackpotgames()->create([
@@ -137,7 +220,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
         $game = $market->jackpotgames()->create([
@@ -164,7 +248,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
         $game = $market->jackpotgames()->create([
@@ -203,7 +288,8 @@ class JackpotGameTest extends TestCase
             'market' => 'Mega Jackpot',
             'market_prize' => 1000,
             'market_id' => 201,
-            'games_count' => 5
+            'games_count' => 5,
+            'min_stake' => 100
         ]);
 
         $game = $market->jackpotgames()->create([
