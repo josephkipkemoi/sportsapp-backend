@@ -38,7 +38,7 @@ class JackpotGamesController extends Controller
         $jp_market_limit = $jp->first()->games_count;
         $jp_market_count = $jackpotmarket->where('jackpot_market_id', $request->jackpot_market_id)->count();
 
-        if($jp_market_count > $jp_market_limit) {
+        if($jp_market_count >= $jp_market_limit) {
             return response()
                         ->json([
                             'message' => "{$jp->first()->market} Limit reached!"
