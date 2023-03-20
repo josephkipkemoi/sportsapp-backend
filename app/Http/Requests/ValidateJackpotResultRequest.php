@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreJackpotResultRequest extends FormRequest
+class ValidateJackpotResultRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,9 @@ class StoreJackpotResultRequest extends FormRequest
     {
         return [
             //
-            'user_id' => ['required', 'numeric'],
-            'jackpot_market_id' => ['required', 'numeric'],
-            'game_id' => ['required', 'numeric'],
-            'picked' => ['required', 'string'],
-            'picked_games_count' => ['required', 'numeric']
+            'picked_games_count' => ['required', 'numeric'],
+            'market_id' => ['required', 'numeric'],
+            'user_id' => ['required', 'numeric']
         ];
     }
 }

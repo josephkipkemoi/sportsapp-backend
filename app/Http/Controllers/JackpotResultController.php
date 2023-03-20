@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatchJackpotResultRequest;
 use App\Http\Requests\StoreJackpotResultRequest;
+use App\Http\Requests\ValidateJackpotResultRequest;
 use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
 use App\Models\JackpotResult;
+use App\Models\JackpotValidateResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -46,5 +48,41 @@ class JackpotResultController extends Controller
                     ->where("jackpot_market_id", $request->jackpot_market_id)
                     ->where("game_id", $request->game_id)
                     ->update($request->validated());     
+    }
+
+    public function validate_jackpot(ValidateJackpotResultRequest $request, JackpotValidateResult $result)
+    {
+        $user_id = $request->validated()['user_id'];
+        $market_id = $request->validated()['market_id'];
+
+        $user = User::find($user_id);
+        $user_balance = $user->balance->amount;
+        $user_picked_games_count = $request->validated()['picked_games_count'];
+
+        $market = JackpotMarketModel::where('market_id', $market_id)->first();
+        $market_games_count = $market->games_count;
+        $market_min_stake = $market->min_stake;
+
+        if($user_balance < $market_min_stake) {
+            return response()
+                        ->json([
+                            "message" => "Insufficient balance, Please top up to place $market->market"
+                        ], 400);
+        }
+
+        if($user_picked_games_count != $market_games_count) {
+            return response()
+                        ->json([
+                                "message" => "You need to pick all games in this Jackpot market to submit"
+                        ], 400);
+        }
+
+        $user->balance()->decrement("amount", $market_min_stake);
+        $result->create($request->validated());
+
+        return response()
+                ->json([
+                    'message' => "Congratulations! $market->market placed succesfully."
+                ], 201);
     }
 }

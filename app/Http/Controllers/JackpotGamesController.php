@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PatchJackpotResultRequest;
 use App\Http\Requests\StoreJackpotGamesRequest;
 use App\Http\Requests\StoreJackpotResultRequest;
 use App\Http\Requests\UpdateJackpotGameRequest;
 use App\Models\JackpotGame;
 use App\Models\JackpotMarketModel;
 use App\Models\JackpotResult;
+use App\Models\User;
 use Carbon\Carbon;
 
 class JackpotGamesController extends Controller
@@ -30,6 +30,11 @@ class JackpotGamesController extends Controller
                     'jackpot_market' => $jp_market,
                     'jackpot_games' => $jp_games
                 ]);
+    }
+
+    public function store_games(StoreJackpotResultRequest $request, JackpotResult $result)
+    {       
+        return $result->create($request->validated());
     }
 
     public function store(JackpotGame $jackpotmarket, StoreJackpotGamesRequest $request) 

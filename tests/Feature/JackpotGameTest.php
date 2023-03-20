@@ -10,6 +10,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertSame;
+
 class JackpotGameTest extends TestCase
 {
     use RefreshDatabase;
@@ -19,6 +21,159 @@ class JackpotGameTest extends TestCase
      *
      * @return void
      */
+    public function test_user_cannot_post_jackpot_games_with_insufficient_balance()
+    {
+        $user = User::factory()->create();
+
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 5,
+            'min_stake' => 100
+        ]);
+
+        $game_1 = JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+
+        $response = $this->post("api/jackpots/$market->market_id/users/$user->id/games", [
+            'user_id' => $user->id,
+            'jackpot_market_id' => $market->market_id,
+            'game_id' => $game_1->id,
+            'picked' => $game_1->home_team,
+            'picked_games_count' => 1
+        ]);
+
+        $response->assertStatus(400);
+    }
+
+    public function test_user_cannot_post_jackpot_games_having_picked_less_games_than_required()
+    {
+        $user = User::factory()->create();
+        $user->balance()->increment("amount", 1000);
+
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 5,
+            'min_stake' => 100
+        ]);
+
+        $game_1 = JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+        JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+
+        $response = $this->post("api/jackpots/$market->market_id/users/$user->id/games", [
+            'user_id' => $user->id,
+            'jackpot_market_id' => $market->market_id,
+            'game_id' => $game_1->id,
+            'picked' => $game_1->home_team,
+            'picked_games_count' => 1
+        ]);
+
+        $response->assertStatus(400);
+    }
+
+    public function test_user_can_post_jackpot_games_with_sufficient_balance_and_having_picked_required_number_of_games_in_jackpot_market()
+    {
+        $user = User::factory()->create();
+        $user->balance()->increment("amount", 1000);
+        
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 1,
+            'min_stake' => 100
+        ]);
+
+        $remaining_balance = $user->balance->amount - $market->min_stake;
+
+        $game_1 = JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+
+        $response = $this->post("api/jackpots/$market->market_id/users/$user->id/games", [
+            'user_id' => $user->id,
+            'jackpot_market_id' => $market->market_id,
+            'game_id' => $game_1->id,
+            'picked' => $game_1->home_team,
+            'picked_games_count' => 1
+        ]);
+
+        $response->assertStatus(201);
+        assertSame($remaining_balance, $user->balance()->first()->amount);
+    }
+
+    public function test_validate_user_can_submit_jackpot_result_after_selecting_all_games()
+    {
+        $user = User::factory()->create();
+        $user->balance()->increment("amount", 1000);
+        
+        $market = JackpotMarketModel::create([
+            'market' => 'Mega Jackpot',
+            'market_prize' => 1000,
+            'market_id' => 201,
+            'games_count' => 1,
+            'min_stake' => 100
+        ]);
+
+        $game_1 = JackpotGame::create([
+            'jackpot_market_id' => $market->market_id,
+            'home_team' => $this->faker()->word(),
+            'away_team' => $this->faker()->word(),
+            'home_odds' => $this->faker()->numberBetween(1,5),
+            'draw_odds' => $this->faker()->numberBetween(1,5),
+            'away_odds' => $this->faker()->numberBetween(1,5),
+            'kick_off_time' => $this->faker()->date()
+        ]);
+
+        $jackpot_res = JackpotResult::create([
+            'user_id' => $user->id,
+            'jackpot_market_id' => $game_1->jackpot_market_id,
+            'game_id' => $game_1->id,
+            'picked' => $game_1->home_team
+        ]);
+
+        $response = $this->post("api/jackpots/results/validate", [
+            'user_id' => $jackpot_res->user_id,
+            'market_id' => $jackpot_res->jackpot_market_id,
+            'picked_games_count' => 1
+        ]);
+
+        $response->assertCreated();
+    }
+
+
     public function test_admin_can_post_jackpot_game()
     {
         $market = JackpotMarketModel::create([
