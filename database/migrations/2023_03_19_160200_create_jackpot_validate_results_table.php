@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('market_id');
             $table->unsignedInteger('picked_games_count');
+            $table->string("jackpot_bet_id")->unique();
             $table->timestamps();
         });
     }

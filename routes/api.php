@@ -178,6 +178,8 @@ Route::post('jackpots/users/{user_id}/games/{game_id}', [JackpotResultController
 Route::patch('jackpots/{jackpot_market_id}/games/{game_id}/users/{user_id}/patch', [JackpotResultController::class, 'patch']);
 Route::get('jackpots/{jackpot_market_id}/users/{user_id}/view', [JackpotResultController::class, 'index']);
 Route::post('jackpots/results/validate', [JackpotResultController::class, 'validate_jackpot']);
+Route::get('jackpots/{market_id}/users/{user_id}/results', [JackpotResultController::class, 'show']);
+Route::get('jackpots/users/{user_id}/results', [JackpotResultController::class, 'show_jackpot']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);

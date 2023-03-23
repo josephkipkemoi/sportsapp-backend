@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('kick_off_time');
             $table->boolean('game_started')->default(false);
             $table->boolean('game_ended')->default(false);
+            $table->string("jackpot_bet_id");
             $table->timestamps();
         });
     }

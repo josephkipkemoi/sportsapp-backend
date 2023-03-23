@@ -46,6 +46,8 @@ class JackpotResultTest extends TestCase
             'jackpot_market_id' => $game->jackpot_market_id,
             'game_id' => $game->id,
             'picked' => "1",
+            'picked_games_count' => 1,
+            'jackpot_bet_id' => $this->faker()->word()
         ]);
 
         $response->assertStatus(400);
@@ -81,6 +83,8 @@ class JackpotResultTest extends TestCase
             'jackpot_market_id' => $game->jackpot_market_id,
             'game_id' => $game->id,
             'picked' => "1",
+            'picked_games_count' => 1,
+            'jackpot_bet_id' => $this->faker()->word()
         ]);
 
         $response->assertStatus(201);

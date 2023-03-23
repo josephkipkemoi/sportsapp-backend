@@ -12,6 +12,7 @@ class JackpotValidateResult extends Model
     protected $fillable = [
         'market_id',
         'user_id',
-        'picked_games_count'
+        'picked_games_count',
+        'jackpot_bet_id'
     ];
 }

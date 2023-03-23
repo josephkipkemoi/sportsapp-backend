@@ -18,7 +18,8 @@ class JackpotGame extends Model
         'away_odds',
         'kick_off_time',
         'game_started',
-        'game_ended'
+        'game_ended',
+        'jackpot_bet_id'
     ];
 
     protected $dates = [
