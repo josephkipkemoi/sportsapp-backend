@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger("game_id");
             $table->string("picked");
             $table->string("outcome")->nullable();
+            $table->string('jackpot_bet_id');
             $table->timestamps();
         });
     }

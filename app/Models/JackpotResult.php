@@ -14,6 +14,7 @@ class JackpotResult extends Model
         'jackpot_market_id',
         'game_id',
         'picked',
-        'outcome'
+        'outcome',
+        'jackpot_bet_id'
     ];
 }

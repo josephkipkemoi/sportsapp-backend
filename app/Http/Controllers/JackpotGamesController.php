@@ -10,6 +10,7 @@ use App\Models\JackpotMarketModel;
 use App\Models\JackpotResult;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class JackpotGamesController extends Controller
 {
@@ -22,7 +23,7 @@ class JackpotGamesController extends Controller
 
         $jp_games = JackpotGame::where('jackpot_market_id', $market_id)->get([
             'id', 'jackpot_market_id', 'home_team', 'away_team', 'home_odds', 'draw_odds', 'away_odds',
-            'kick_off_time', 'game_started', 'game_ended'
+            'kick_off_time', 'game_started', 'game_ended','jackpot_bet_id'
         ]);
 
         return response()
@@ -32,9 +33,19 @@ class JackpotGamesController extends Controller
                 ]);
     }
 
-    public function store_games(StoreJackpotResultRequest $request, JackpotResult $result)
+    public function store_games(Request $request, JackpotResult $result)
     {       
-        return $result->create($request->validated());
+        // $bet_id = $request->validated()['jackpot_bet_id'];
+        // $game = $result->where('jackpot_bet_id', $bet_id)->first();
+
+        // if($game == null) {
+        //     return $result->create($request->validated());
+        // }
+        // $result->create($request->validated());
+        // // return $game->update([
+        // //     'picked' => $req->picked
+        // // ]); 
+        return "feature dropped";
     }
 
     public function store(JackpotGame $jackpotmarket, StoreJackpotGamesRequest $request) 

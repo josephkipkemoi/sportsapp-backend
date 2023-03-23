@@ -40,21 +40,23 @@ class JackpotValidationTest extends TestCase
             'home_odds' => $this->faker()->numberBetween(1,5),
             'draw_odds' => $this->faker()->numberBetween(1,5),
             'away_odds' => $this->faker()->numberBetween(1,5),
-            'kick_off_time' => $this->faker()->date()
+            'kick_off_time' => $this->faker()->date(),
+            'jackpot_bet_id' => $this->faker()->word()
         ]);
 
         $jackpot_res = JackpotResult::create([
             'user_id' => $user->id,
             'jackpot_market_id' => $game_1->jackpot_market_id,
             'game_id' => $game_1->id,
-            'picked' => $game_1->home_team
+            'picked' => $game_1->home_team,
+            'jackpot_bet_id' => $game_1->jackpot_bet_id
         ]);
 
         $response = $this->post("api/jackpots/results/validate", [
             'user_id' => $jackpot_res->user_id,
             'market_id' => $jackpot_res->jackpot_market_id,
             'picked_games_count' => 1,
-            'jackpot_bet_id' => $this->faker()->word()
+            'jackpot_bet_id' => $jackpot_res->jackpot_bet_id
         ]);
 
         $response->assertCreated();
@@ -80,14 +82,17 @@ class JackpotValidationTest extends TestCase
             'home_odds' => $this->faker()->numberBetween(1,5),
             'draw_odds' => $this->faker()->numberBetween(1,5),
             'away_odds' => $this->faker()->numberBetween(1,5),
-            'kick_off_time' => $this->faker()->date()
+            'kick_off_time' => $this->faker()->date(),
+            'jackpot_bet_id' => $this->faker()->word()
         ]);
 
         $jackpot_res = JackpotResult::create([
             'user_id' => $user->id,
             'jackpot_market_id' => $game_1->jackpot_market_id,
             'game_id' => $game_1->id,
-            'picked' => $game_1->home_team
+            'picked' => $game_1->home_team,
+            'jackpot_bet_id' => $this->faker()->word(),
+            'jackpot_bet_id' => $game_1->jackpot_bet_id
         ]);
 
         $res = JackpotValidateResult::create([
@@ -122,21 +127,23 @@ class JackpotValidationTest extends TestCase
             'home_odds' => $this->faker()->numberBetween(1,5),
             'draw_odds' => $this->faker()->numberBetween(1,5),
             'away_odds' => $this->faker()->numberBetween(1,5),
-            'kick_off_time' => $this->faker()->date()
+            'kick_off_time' => $this->faker()->date(),
+            'jackpot_bet_id' => $this->faker()->word()
         ]);
 
         $jackpot_res = JackpotResult::create([
             'user_id' => $user->id,
             'jackpot_market_id' => $game_1->jackpot_market_id,
             'game_id' => $game_1->id,
-            'picked' => $game_1->home_team
+            'picked' => $game_1->home_team,
+            'jackpot_bet_id' => $game_1->jackpot_bet_id
         ]);
 
         $res = JackpotValidateResult::create([
             'user_id' => $jackpot_res->user_id,
             'market_id' => $jackpot_res->jackpot_market_id,
             'picked_games_count' => 1,
-            'jackpot_bet_id' => $this->faker()->word()
+            'jackpot_bet_id' => $jackpot_res->jackpot_bet_id
         ]);
 
         $response = $this->get("api/jackpots/users/$res->user_id/results");

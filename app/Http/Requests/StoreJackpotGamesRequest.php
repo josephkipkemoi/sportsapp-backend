@@ -32,6 +32,7 @@ class StoreJackpotGamesRequest extends FormRequest
             'draw_odds' => ['required', 'numeric'],
             'away_odds' => ['required', 'numeric'],
             'kick_off_time' => ['required'],
+            'jackpot_bet_id' => ['required', 'string']
         ];
     }
 }
