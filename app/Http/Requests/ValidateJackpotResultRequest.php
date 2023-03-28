@@ -28,7 +28,8 @@ class ValidateJackpotResultRequest extends FormRequest
             'picked_games_count' => ['required', 'numeric'],
             'market_id' => ['required', 'numeric'],
             'user_id' => ['required', 'numeric'],
-            'jackpot_bet_id' => ['required', 'string']
+            'jackpot_bet_id' => ['required', 'string'],
+            'jackpot_games' => ['required']
         ];
     }
 }

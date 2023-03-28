@@ -77,8 +77,8 @@ class JackpotResultController extends Controller
                         ], 400);
         }
 
-        $user->balance()->decrement("amount", $market_min_stake);
         $result->create($request->validated()); 
+        $user->balance()->decrement("amount", $market_min_stake);
 
         return response()
                 ->json([
@@ -88,7 +88,7 @@ class JackpotResultController extends Controller
 
     public function show($user_id, $market_id)
     {
-        $pick = JackpotResult::where("user_id", $user_id)->where("jackpot_market_id", $market_id)->get(['picked', 'outcome']);
+        $pick = JackpotValidateResult::where("user_id", $user_id)->where("jackpot_market_id", $market_id)->get(['picked', 'outcome']);
         $res = JackpotResult::where("user_id", $user_id)->get(['game_id']);
         $games = JackpotGame::whereIn('id', $res)->get();
 
@@ -101,11 +101,8 @@ class JackpotResultController extends Controller
 
     public function show_jackpot($user_id)
     {
-        $games = JackpotResult::where("user_id", $user_id)->get();
+        $games = JackpotValidateResult::where("user_id", $user_id)->paginate(10);
     
-        return response()
-                ->json([
-                    "games" => $games
-                ],200);
+        return $games;
     }
 }

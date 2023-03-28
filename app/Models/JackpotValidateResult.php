@@ -13,6 +13,10 @@ class JackpotValidateResult extends Model
         'market_id',
         'user_id',
         'picked_games_count',
-        'jackpot_bet_id'
+        'jackpot_bet_id',
+        'jackpot_games',
+        'market_outcome'
     ];
+
+  
 }
