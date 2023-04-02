@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JackpotRequest;
 use App\Http\Requests\PatchJackpotResultRequest;
 use App\Http\Requests\StoreJackpotResultRequest;
 use App\Http\Requests\ValidateJackpotResultRequest;
@@ -101,8 +102,16 @@ class JackpotResultController extends Controller
 
     public function show_jackpot($user_id)
     {
-        $games = JackpotValidateResult::where("user_id", $user_id)->paginate(10);
-    
+        $games = JackpotValidateResult::where("user_id", $user_id)
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(10);
         return $games;
+    }
+
+    public function delete($jackpot_id, $user_id)
+    {
+        return JackpotValidateResult::where("user_id", $user_id)
+                        ->where('id', $jackpot_id)
+                        ->delete();
     }
 }

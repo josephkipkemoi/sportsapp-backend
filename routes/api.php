@@ -180,6 +180,7 @@ Route::get('jackpots/{jackpot_market_id}/users/{user_id}/view', [JackpotResultCo
 Route::post('jackpots/results/validate', [JackpotResultController::class, 'validate_jackpot']);
 Route::get('jackpots/{market_id}/users/{user_id}/results', [JackpotResultController::class, 'show']);
 Route::get('jackpots/users/{user_id}/results', [JackpotResultController::class, 'show_jackpot']);
+Route::delete('jackpots/{jackpot_id}/users/{user_id}/delete', [JackpotResultController::class, 'delete']);
 
 // Live Fixtures Routes
 Route::post('fixtures/live', [LiveFixturesController::class, 'store']);
