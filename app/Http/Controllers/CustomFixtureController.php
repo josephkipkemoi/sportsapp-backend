@@ -66,7 +66,7 @@ class CustomFixtureController extends Controller
             // 'X-RapidAPI-Host' => 'api-football-v1.p.rapidapi.com',
             // 'X-RapidAPI-Key' =>  'b2c138608fmsh6567bc9b793b465p1a4945jsnb15afccb7248'
             'x-apisports-key' => '9ed9fc9b6c13eab1282b3edd1592ad56'
-            ])->get("https://v3.football.api-sports.io/odds?fixture=${fix_id}&bookmaker=8");
+            ])->get("https://v3.football.api-sports.io/odds?fixture=$fix_id&bookmaker=8");
 
             foreach($response->object()->response as $val)
             {
