@@ -54,8 +54,8 @@ class MpesaController extends Controller
 
         $data =[
             'BusinessShortCode' => 174379,
-            'Password' => 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIwODAzMTEzNzUw',
-            'Timestamp' =>  '20220803113750',
+            'Password' => 'MTc0Mzc5YmZiMjc5TliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3',
+            'Timestamp' =>  $timestamp,
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => $request->input('amount'),
             'PartyA' => $request->input('phone_number'),
@@ -81,8 +81,8 @@ class MpesaController extends Controller
     $endpoint = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
 
     $reponse = Http::withBasicAuth(
-    'Azs2KejU1ARvIL5JdJsARbV2gDrWmpOB',
-    'hipGvFJbOxri330c'
+    'Ah6Mm0Xe2DQfvamYMheN8K9IVnTSQxxU',
+    '3mPZCE5uFhsgaT0u'
     )->get($endpoint);
  
     return $reponse;
