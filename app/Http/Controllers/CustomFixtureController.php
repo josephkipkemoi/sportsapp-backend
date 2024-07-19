@@ -21,7 +21,7 @@ class CustomFixtureController extends Controller
          $response = Http::withHeaders([
             // 'X-RapidAPI-Host' => 'api-football-v1.p.rapidapi.com',
             // 'X-RapidAPI-Key' =>  'b2c138608fmsh6567bc9b793b465p1a4945jsnb15afccb7248',
-            'x-apisports-key' => '9ed9fc9b6c13eab1282b3edd1592ad56'
+            'x-apisports-key' => '441198191a0bc810442be7958d8d3aa1'
         ])->get('https://v3.football.api-sports.io/fixtures?next=50');
 
         foreach($response->object()->response as $res)
