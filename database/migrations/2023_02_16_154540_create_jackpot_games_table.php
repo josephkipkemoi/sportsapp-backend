@@ -21,9 +21,9 @@ return new class extends Migration
                 ->nullable();
             $table->string('home_team');
             $table->string('away_team');
-            $table->unsignedFloat('home_odds');
-            $table->unsignedFloat('draw_odds');
-            $table->unsignedFloat('away_odds');
+            $table->float('home_odds');
+            $table->float('draw_odds');
+            $table->float('away_odds');
             $table->timestamp('kick_off_time');
             $table->boolean('game_started')->default(false);
             $table->boolean('game_ended')->default(false);
