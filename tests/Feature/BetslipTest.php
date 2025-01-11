@@ -39,7 +39,7 @@ class BetslipTest extends TestCase
         ]);
         $session_id = json_decode($betslip->getContent())->data->session_id;
 
-        $response = $this->get("api/betslips/${session_id}");
+        $response = $this->get("api/betslips/{$session_id}");
         
         $response->assertOk();
     }
@@ -103,7 +103,7 @@ class BetslipTest extends TestCase
         ]);
 
 
-        $response = $this->get("api/betslips/sessions/${session_id}/odds-total");
+        $response = $this->get("api/betslips/sessions/{$session_id}/odds-total");
 
         $odds_total = $slip1->getData()->data->betslip_odds * $slip2->getData()->data->betslip_odds;
  
