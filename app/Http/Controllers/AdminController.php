@@ -148,13 +148,13 @@ class AdminController extends Controller
         $message->create($request->validated());
 
         $user = User::where('id', $request->validated()['user_id'])->first();
-
+        
         event(new MessageSent( $user ,$request->validated()['user_id'] ,$request->validated()['message'], Support::CUSTOMERCAREAGENT));
-
+       
         return response()
         ->json([
             'message' => 'Event Sent'
-        ]);
+        ], 201);
     }
 
     public function message_custom(Request $request, AdminMessages $message) 
