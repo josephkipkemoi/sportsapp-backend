@@ -82,7 +82,7 @@ class AdminController extends Controller
                     ->update([
                         'bet_status' => $request->input('bet_status')
                         ]);
-
+                        
         return response()
                     ->json([
                         'message' => 'Betslip status updated'
