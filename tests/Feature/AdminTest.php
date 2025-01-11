@@ -50,8 +50,8 @@ class AdminTest extends TestCase
             'total_odds' => $this->faker()->numberBetween(1000,10000),
             'possible_payout' => $this->faker()->numberBetween(1000,10000)
         ]);
-     
-        $response = $this->patch("api/admin/users/{$user->id}/bets/{$checkout->session_id}/update", [
+
+        $response = $this->patch("api/admin/users/$user->id/bets/$checkout->cart_id/update", [
             'bet_status' => 'Won'
         ]);
 
