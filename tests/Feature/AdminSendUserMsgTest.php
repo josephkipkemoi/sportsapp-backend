@@ -24,6 +24,7 @@ class AdminSendUserMsgTest extends TestCase
             'phone_number' => $user->phone_number,
             'message' => $this->faker()->text(),
             'original_message' => $this->faker()->text(),
+            'user_id' => $user->id
         ]);
 
         $response->assertStatus(201);
