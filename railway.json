@@ -1,0 +1,3 @@
+"deploy": {
+    "postdeploy": "php artisan migrate --force"
+}
