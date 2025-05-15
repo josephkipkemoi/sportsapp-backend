@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/run-migrations', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
     return 'Migrations executed.';
 });
 
