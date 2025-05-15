@@ -1,3 +1,5 @@
-"deploy": {
-    "postdeploy": "php artisan migrate --force"
+{
+    "deploy": {
+        "postdeploy": "php artisan migrate --force"
+    }
 }
